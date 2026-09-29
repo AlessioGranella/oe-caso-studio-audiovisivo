@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Caso studio — Impatto dell'audiovisivo italiano | OpenEconomics</title>
+<meta name="description" content="Studio socioeconomico OpenEconomics per APA: impatti macroeconomici e ritorno sociale della spesa del settore audiovisivo italiano, dati 2023.">
+<link rel="stylesheet" href="ds-kit/colors_and_type.css">
+<link rel="stylesheet" href="ds-kit/components.css">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:var(--oe-bg);color:var(--oe-fg);font-family:var(--oe-font-sans);font-weight:300;font-size:18px;line-height:1.5}
+img,svg{max-width:100%}
+@media (max-width:767.98px){
+  .stat-inline{gap:var(--oe-space-m)}
+  .stat-inline div{min-width:0;flex:1 1 130px}
+  .cards{grid-template-columns:1fr}
+}
+
+/* ---- header ---- */
+.site{background:var(--oe-bg);border-bottom:1px solid var(--oe-gray-200)}
+.site__inner{display:flex;align-items:center;padding-block:var(--oe-space-s);min-height:64px}   /* l'altezza che la barra aveva quando conteneva il pulsante */
+.site__logo{height:20px;width:auto;color:var(--oe-black);display:block}
+
+/* ---- bands ----
+   Le sezioni interne alternano bianco e grigio (--oe-bg-elev);
+   le fasce scure sono solo hero e «consegnato». */
+.band{padding:var(--oe-space-3xl) 0}
+.band--tight{padding:var(--oe-space-2xl) 0}
+.band--elev{background:var(--oe-bg-elev)}
+.band--dark{background:var(--oe-bg-dark);color:var(--oe-white)}
+.band--dark h2,.band--dark h3,.band--dark p,.band--dark li{color:var(--oe-white)}
+.band--dark .lead,.band--dark .body{color:rgba(255,255,255,.82)}
+.band + .band--elev{border-top:1px solid var(--oe-gray-200)}
+
+/* ---- type ---- */
+.band .oe-tag-chip--lime{margin-bottom:var(--oe-space-s)}
+h2{font-family:var(--oe-font-serif);font-weight:400;font-size:clamp(30px,3.6vw,46px);
+  line-height:1.12;margin:0 0 var(--oe-space-m);max-width:22ch;text-wrap:balance}
+h3{font-family:var(--oe-font-sans);font-weight:600;font-size:20px;line-height:1.3;margin:0 0 var(--oe-space-xs)}
+h4{font-family:var(--oe-font-sans);font-weight:600;font-size:16px;margin:0 0 var(--oe-space-xxs)}
+p{margin:0 0 var(--oe-space-s);color:var(--oe-fg-soft);max-width:70ch;text-wrap:pretty}
+.lead{font-size:21px;color:var(--oe-fg-soft);max-width:62ch}
+.body{font-size:17px}
+.note{font-size:14px;color:var(--oe-fg-muted);max-width:78ch}
+strong{font-weight:600;color:var(--oe-fg)}
+.band--dark strong{color:var(--oe-white)}
+ul.plain{list-style:none;margin:0 0 var(--oe-space-s);padding:0;display:grid;gap:var(--oe-space-s)}
+ul.plain li{position:relative;padding-left:26px;color:var(--oe-fg-soft);font-size:17px;max-width:70ch}
+ul.plain li::before{content:"";position:absolute;left:0;top:.5em;width:12px;height:12px;background:var(--oe-accent)}
+.band--dark ul.plain li::before{background:var(--oe-pop)}
+.band--dark ul.plain li{color:rgba(255,255,255,.82)}
+
+
+/* ---- kpi ---- */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--oe-space-s)}
+@media (max-width:1199.98px){ .kpis{grid-template-columns:repeat(3,1fr)} }
+@media (max-width:640px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+
+/* ---- two-col ---- */
+.cols{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--oe-space-2xl);align-items:start}
+.cols--even{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:899.98px){ .cols,.cols--even{grid-template-columns:1fr;gap:var(--oe-space-l)} }
+/* testo lungo su due colonne (sezione «il punto di partenza») */
+.text-2col{columns:2;column-gap:var(--oe-space-2xl);margin-top:var(--oe-space-s)}
+.text-2col p{max-width:none}   /* il testo scorre fra le colonne e si bilancia */
+.text-2col p:last-child{margin-bottom:0}
+@media (max-width:767.98px){ .text-2col{columns:1} }
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--oe-space-s);
+  margin-top:var(--oe-space-xl)}
+.oe-card p{margin:0;font-size:16px}
+.oe-kpi__value{white-space:nowrap}
+.kpis .oe-kpi__value{font-size:40px}
+
+/* ---- figure ---- */
+.fig{margin:var(--oe-space-l) 0 0;border:1px solid var(--oe-gray-200);padding:var(--oe-space-m);background:var(--oe-white)}
+.fig__head{margin-bottom:var(--oe-space-s)}
+.fig__title{font-family:var(--oe-font-sans);font-weight:600;font-size:17px;margin:4px 0 0;color:var(--oe-fg)}
+
+.band--dark .fig{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.16)}
+
+/* ---- flow (teoria del cambiamento) ---- */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--oe-space-s);margin-top:var(--oe-space-m)}
+@media (max-width:767.98px){ .flow{grid-template-columns:1fr} }
+.flow div{border:1px solid var(--oe-gray-200);padding:var(--oe-space-m);background:var(--oe-white)}
+.flow span{font-family:var(--oe-font-mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--oe-accent);display:block;margin-bottom:6px}
+.flow p{margin:0;font-size:16px}
+
+/* ---- tables ---- */
+.oe-table__wrap{margin-top:var(--oe-space-m)}
+.fig + .oe-note{margin-top:var(--oe-space-m)}
+.oe-table{font-size:15px}
+.tab-mix td:nth-child(n+3),.tab-mix th:nth-child(n+3){text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---- delivery ---- */
+.deliver{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--oe-space-s)}
+@media (max-width:1023.98px){ .deliver{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:560px){ .deliver{grid-template-columns:1fr} }
+.deliver article{border-top:3px solid var(--oe-pop);background:rgba(255,255,255,.04);
+  padding:var(--oe-space-m)}
+.deliver h4{color:var(--oe-white)}
+.deliver p{color:rgba(255,255,255,.78);font-size:15px;margin:0}
+
+.stat-inline{display:flex;flex-wrap:wrap;gap:var(--oe-space-xl);margin:var(--oe-space-l) 0 0}
+.stat-inline div{min-width:170px}
+.stat-inline b{display:block;font-family:var(--oe-font-sans);font-weight:500;font-size:40px;
+  line-height:1;color:var(--oe-accent);font-variant-numeric:tabular-nums}
+.stat-inline span{display:block;margin-top:6px;font-family:var(--oe-font-mono);font-size:12px;
+  text-transform:uppercase;letter-spacing:.04em;color:var(--oe-fg-muted)}
+.band--dark .stat-inline b{color:var(--oe-pop)}
+.band--dark .stat-inline span{color:var(--oe-on-dark-muted)}
+
+.oe-cta{margin-top:0}
+
+/* ---- numeri ----
+   Hedvig solo sui numeri in evidenza (stat, podio, cifre grandi dei grafici).
+   Etichette delle barre, classifica della mappa e tabelle restano in Atkinson tabulare. */
+.oe-chart .oe-val{font-family:var(--oe-font-sans);font-weight:500;font-variant-numeric:tabular-nums}
+.oe-chart .oe-val--display{font-family:var(--oe-font-serif);font-weight:400;letter-spacing:-.01em}
+.stat-inline b{font-family:var(--oe-font-serif);font-weight:400;letter-spacing:-.01em}
+.oe-rank b{font-family:var(--oe-font-sans);font-weight:500;font-size:13px}
+
+/* ---- controlli dei grafici ---- */
+.fig__ctrl{display:flex;align-items:center;gap:var(--oe-space-s);flex-wrap:wrap;
+  margin:0 0 var(--oe-space-s)}
+.fig__ctrl-label{font-family:var(--oe-font-mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--oe-fg-muted)}
+.oe-segment__btn:focus-visible{outline:2px solid var(--oe-accent);outline-offset:2px}
+
+/* ---- grafici: stati interattivi ---- */
+.oe-chart{display:block;width:100%;overflow:hidden}
+.oe-chart .oe-bar{transition:width .38s cubic-bezier(.2,.7,.2,1),opacity .14s linear}
+.oe-chart .oe-row,.oe-chart .oe-region{cursor:default;outline:none}
+.oe-chart .oe-row:hover .oe-bar,.oe-chart .oe-row:focus-visible .oe-bar{opacity:.86}
+.oe-chart .oe-row:focus-visible .oe-lab,.oe-chart .oe-row:focus-visible .oe-val{font-weight:600}
+.oe-chart .oe-lg{cursor:pointer}
+.oe-chart[data-focus] .oe-bar{opacity:.22}
+.oe-chart[data-focus="0"] .oe-bar[data-series="0"],
+.oe-chart[data-focus="1"] .oe-bar[data-series="1"],
+.oe-chart[data-focus="2"] .oe-bar[data-series="2"]{opacity:1}
+.oe-chart .oe-src{font-family:var(--oe-font-mono);letter-spacing:.04em}
+[data-oe-chart].is-in{animation:figIn .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes figIn{from{opacity:0}to{opacity:1}}
+
+/* ---- mappa + classifica ---- */
+.oe-map{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:var(--oe-space-l);align-items:start}
+@media (max-width:767.98px){ .oe-map{grid-template-columns:1fr} }
+.oe-map__svg{max-height:520px}
+.oe-region{transition:fill .32s cubic-bezier(.2,.7,.2,1)}
+.oe-region.is-on{stroke:var(--oe-accent);stroke-width:1.6}
+.oe-rank{list-style:none;margin:0;padding:0;columns:2;column-gap:var(--oe-space-l);font-size:13px}
+@media (max-width:560px){ .oe-rank{columns:1} }
+.oe-rank__i{display:flex;align-items:center;gap:8px;padding:3px 4px;break-inside:avoid;cursor:default}
+.oe-rank__i i{width:10px;height:10px;flex:0 0 auto}
+.oe-rank__i span{flex:1 1 auto;color:var(--oe-fg-soft)}
+.oe-rank__i b{font-variant-numeric:tabular-nums}
+.oe-rank__i.is-on{background:var(--oe-accent-soft)}
+.oe-chart__foot{display:flex;flex-wrap:wrap;gap:var(--oe-space-s);justify-content:space-between;
+  margin:var(--oe-space-s) 0 0;font-size:11.5px;color:var(--oe-fg-muted)}
+.oe-chart__foot .oe-src{font-family:var(--oe-font-mono);letter-spacing:.04em}
+
+/* ---- podio pro capite ---- */
+.podium{border-top:3px solid var(--oe-pop);padding-top:var(--oe-space-s)}
+.podium__row{display:flex;align-items:baseline;gap:var(--oe-space-s);
+  padding:var(--oe-space-xs) 0;border-bottom:1px solid var(--oe-gray-200)}
+.podium__row b{font-size:34px;line-height:1;color:var(--oe-accent);min-width:74px}
+.podium__row span{font-size:14px;color:var(--oe-fg-soft)}
+.podium .note{margin-top:var(--oe-space-s)}
+
+/* ---- tooltip ---- */
+.oe-tip{position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
+  transition:opacity .12s linear;background:var(--oe-bg-dark);color:#fff;padding:10px 12px;
+  min-width:180px;max-width:280px;box-shadow:0 4px 12px rgba(39,0,101,.18)}
+.oe-tip.is-on{opacity:1}
+.oe-tip__t{font-family:var(--oe-font-sans);font-weight:600;font-size:13px;margin-bottom:2px}
+.oe-tip__s{font-family:var(--oe-font-mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--oe-on-dark-accent);margin-bottom:6px}
+.oe-tip__r{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.5;
+  color:rgba(255,255,255,.82)}
+.oe-tip__r b{font-family:var(--oe-font-sans);font-weight:600;font-size:12.5px;color:#fff;
+  font-variant-numeric:tabular-nums}
+.oe-tip__k{display:flex;align-items:center;gap:6px}
+.oe-tip__k i{width:9px;height:9px;display:inline-block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+
+@media (prefers-reduced-motion: reduce){
+  .oe-chart .oe-bar,.oe-region{transition:none}
+  [data-oe-chart].is-in{animation:none}
+}
+
+
+
+@media print{ .site,.oe-cta,.fig__ctrl,.oe-hero-analisi__cue{display:none} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="oe-container site__inner">
+    <svg class="site__logo"  viewBox="0 0 1789 226" fill="currentColor" role="img" aria-label="OpenEconomics" xmlns="http://www.w3.org/2000/svg"     > <path d="M90.6,9.5c-49,0-88.7,39.8-88.7,89c0,49.1,39.7,89,88.7,89s88.7-39.8,88.7-89C179.3,49.3,139.6,9.5,90.6,9.5z M38.2,151V46h104.6v105H38.2z" /> <path d="M199.5,226V57H221l5.6,19.3c2.6-4.6,5.9-8.6,10-11.8c4.1-3.3,8.7-5.7,13.8-7.4s10.7-2.6,16.6-2.6c10.1,0,19.3,2.7,27.6,8c8.4,5.3,15,12.9,20,22.9c4.9,9.9,7.4,21.8,7.4,35.7s-2.5,25.9-7.4,36c-4.9,9.9-11.6,17.6-20,22.9c-8.4,5.1-17.6,7.7-27.6,7.7c-6,0-11.5-0.9-16.6-2.6c-5.1-1.7-9.7-4.2-13.8-7.4c-4.1-3.4-7.4-7.4-10-12.1V226H199.5z M259.1,165.1c9.9,0,17.9-3.9,24-11.6c6.3-7.7,9.5-18.6,9.5-32.6s-3.2-24.9-9.5-32.6c-6.1-7.7-14.2-11.6-24-11.6c-9.9,0-18,3.7-24.3,11c-6.1,7.4-9.2,18.3-9.2,32.9c0,14.4,3.1,25.4,9.2,33.1C241.1,161.4,249.2,165.1,259.1,165.1z" /> <path d="M399.1,187.5c-13.5,0-25.1-2.8-34.8-8.5c-9.6-5.8-17-13.7-22.3-23.6c-5.1-10.1-7.7-21.7-7.7-34.7c0-13.5,2.8-25.3,8.4-35.2c5.8-9.9,13.5-17.6,23-22.9c9.7-5.5,20.6-8.2,32.5-8.2c10.1,0,19,2,26.9,5.9c8,3.9,14.7,9.3,20,16.2c5.3,6.8,9.1,14.7,11.5,23.6c2.4,8.7,3.2,18.1,2.6,28H362c0.9,7,2.6,12.9,5.1,17.7c2.6,4.8,5.5,8.6,9,11.3c3.6,2.7,7.3,4.7,11.3,5.9c4.1,1.2,7.9,1.8,11.5,1.8c6.7,0,12.3-1,16.9-3.1c4.8-2.2,8.5-5.1,11.3-8.5l24,7.7c-5.1,8.2-12.2,14.7-21.2,19.5C420.8,185.2,410.5,187.5,399.1,187.5z M362.3,108.6h69.8c-0.2-5.8-1.7-11.1-4.6-15.9c-2.7-5-6.6-8.9-11.5-11.8c-4.9-3.1-10.7-4.6-17.4-4.6c-5.3,0-10.6,1-15.9,3.1c-5.1,2.1-9.6,5.5-13.3,10.3C365.8,94.2,363.5,100.6,362.3,108.6z" /> <path d="M477.9,184.4V57h21.7l5.4,18.5c2.2-3.8,5.1-7.2,8.7-10.3c3.8-3.3,8.2-5.8,13.3-7.7c5.3-2.1,11.4-3.1,18.4-3.1c10.4,0,18.7,2.1,24.8,6.2s10.6,9.9,13.3,17.5c2.7,7.5,4.1,16.4,4.1,26.7v79.6h-27.4v-72.2c0-6.3-0.5-12.2-1.5-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-9-4.9-16.6-4.9c-9.6,0-17,3.4-22.3,10.3c-5.3,6.7-7.9,16.5-7.9,29.5v67.8L477.9,184.4L477.9,184.4z" /> <path d="M645.3,158.7V112h-25.9v72.5H737v-25.7h-91.7V158.7z M736.1,38.3V12.6H619.4v71.9h25.9V38.3H736.1z M714.6,84.5h-69.3V112h69.3V84.5z" /> <path d="M808.6,187.5c-12.8,0-23.8-2.8-33-8.5c-9-5.8-16-13.7-21-23.6c-4.8-10.1-7.2-21.7-7.2-34.7c0-12.8,2.6-24.2,7.7-34.2c5.3-10.1,12.6-18,22-23.6c9.4-5.7,20.4-8.5,33-8.5c7.5,0,14.5,1.3,21,3.9c6.7,2.4,12.5,5.8,17.7,10.3c5.1,4.5,9.2,9.8,12.3,16.2l-23.8,8.7c-2.6-5.3-6.3-9.3-11.3-12.1c-4.8-2.9-10.1-4.4-16.1-4.4c-5.8,0-11.3,1.5-16.6,4.6c-5.1,3.1-9.3,7.8-12.5,14.1c-3.1,6.3-4.6,14.6-4.6,24.9c0,10.1,1.6,18.5,4.9,25.2c3.2,6.5,7.4,11.3,12.5,14.4c5.1,3.1,10.6,4.6,16.4,4.6c6.5,0,12-1.4,16.6-4.1c4.8-2.9,8.4-6.7,11-11.3l23.8,8.7c-3.6,6.2-8.1,11.5-13.6,15.9c-5.5,4.3-11.5,7.6-18.2,10C823,186.4,816,187.5,808.6,187.5z" /> <path d="M929.2,187.5c-7.8,0-15.5-1.3-23-3.9c-7.5-2.6-14.2-6.6-20.2-12.1s-10.8-12.4-14.6-20.8c-3.6-8.4-5.4-18.3-5.4-29.8s1.8-21.4,5.4-29.8c3.8-8.4,8.6-15.3,14.6-20.8s12.7-9.5,20.2-12.1s15.2-3.9,23-3.9s15.4,1.3,22.8,3.9c7.5,2.6,14.2,6.6,20.2,12.1s10.7,12.4,14.3,20.8c3.8,8.4,5.6,18.3,5.6,29.8s-1.9,21.4-5.6,29.8c-3.6,8.4-8.4,15.3-14.3,20.8c-6,5.5-12.7,9.5-20.2,12.1C944.7,186.2,937.1,187.5,929.2,187.5z M929.2,164.9c6,0,11.5-1.5,16.6-4.4c5.3-3.1,9.6-7.9,12.8-14.4s4.9-14.9,4.9-25.2s-1.6-18.6-4.9-24.9c-3.2-6.5-7.5-11.3-12.8-14.4c-5.1-3.1-10.7-4.6-16.6-4.6c-6,0-11.6,1.5-16.9,4.6c-5.3,3.1-9.6,7.9-12.8,14.4c-3.2,6.3-4.9,14.6-4.9,24.9s1.6,18.7,4.9,25.2c3.2,6.5,7.5,11.3,12.8,14.4C917.6,163.4,923.3,164.9,929.2,164.9z" /> <path d="M1012.3,184.4V57h21.8l5.4,18.5c2.2-3.8,5.1-7.2,8.7-10.3c3.8-3.3,8.2-5.8,13.3-7.7c5.3-2.1,11.4-3.1,18.4-3.1c10.4,0,18.7,2.1,24.8,6.2c6.1,4.1,10.6,9.9,13.3,17.5c2.7,7.5,4.1,16.4,4.1,26.7v79.6h-27.4v-72.2c0-6.3-0.5-12.2-1.5-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-8.9-4.9-16.6-4.9c-9.6,0-17,3.4-22.2,10.3c-5.3,6.7-7.9,16.5-7.9,29.5v67.8L1012.3,184.4L1012.3,184.4z" /> <path d="M1204.8,187.5c-7.8,0-15.5-1.3-23-3.9c-7.5-2.6-14.2-6.6-20.2-12.1s-10.8-12.4-14.6-20.8c-3.6-8.4-5.4-18.3-5.4-29.8s1.8-21.4,5.4-29.8c3.8-8.4,8.6-15.3,14.6-20.8s12.7-9.5,20.2-12.1s15.2-3.9,23-3.9s15.4,1.3,22.8,3.9c7.5,2.6,14.2,6.6,20.2,12.1s10.8,12.4,14.3,20.8c3.8,8.4,5.6,18.3,5.6,29.8s-1.9,21.4-5.6,29.8c-3.6,8.4-8.4,15.3-14.3,20.8c-6,5.5-12.7,9.5-20.2,12.1C1220.2,186.2,1212.6,187.5,1204.8,187.5z M1204.8,164.9c6,0,11.5-1.5,16.6-4.4c5.3-3.1,9.5-7.9,12.8-14.4c3.2-6.5,4.9-14.9,4.9-25.2s-1.6-18.6-4.9-24.9c-3.2-6.5-7.5-11.3-12.8-14.4c-5.1-3.1-10.7-4.6-16.6-4.6c-6,0-11.6,1.5-16.9,4.6s-9.6,7.9-12.8,14.4c-3.2,6.3-4.9,14.6-4.9,24.9s1.6,18.7,4.9,25.2c3.2,6.5,7.5,11.3,12.8,14.4C1193.2,163.4,1198.8,164.9,1204.8,164.9z" /> <path d="M1287.8,184.4V57h21.8l5.4,18.5c2.2-3.8,5-7.2,8.4-10.3c3.6-3.3,7.8-5.8,12.8-7.7c4.9-2.1,10.6-3.1,16.9-3.1c9.9,0,17.8,2,23.8,5.9c6,3.8,10.4,9.2,13.3,16.2c4.9-7.7,11.1-13.3,18.4-16.7c7.5-3.6,15.7-5.4,24.6-5.4c10.2,0,18.3,2.1,24.3,6.2s10.3,9.9,13,17.5s4.1,16.4,4.1,26.7v79.6h-27.1v-72.2c0-6.3-0.6-12.2-1.8-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-8.8-4.9-16.1-4.9c-8.7,0-15.5,3.3-20.5,10c-4.9,6.5-7.4,16.2-7.4,29v68.6h-27.1v-72.2c0-6.3-0.6-12.2-1.8-17.5c-1-5.5-3.2-9.8-6.7-13.1c-3.4-3.3-8.8-4.9-16.1-4.9c-5.8,0-10.8,1.5-15.1,4.6c-4.3,2.9-7.5,7.4-9.7,13.4c-2.2,5.8-3.3,12.9-3.3,21.3v68.3h-27.2V184.4z" /> <path d="M1510,184.4V78.3h-18.9V57h46.3v127.4H1510z" /> <path d="M1505.9,1h31.7v31.8h-31.7V1z" /> <path d="M1619.1,187.5c-12.8,0-23.8-2.8-33-8.5c-9-5.8-16-13.7-21-23.6c-4.8-10.1-7.2-21.7-7.2-34.7c0-12.8,2.6-24.2,7.7-34.2c5.3-10.1,12.6-18,22-23.6c9.4-5.7,20.4-8.5,33-8.5c7.5,0,14.5,1.3,21,3.9c6.7,2.4,12.5,5.8,17.7,10.3c5.1,4.5,9.2,9.8,12.3,16.2l-23.8,8.7c-2.6-5.3-6.3-9.3-11.3-12.1c-4.8-2.9-10.2-4.4-16.1-4.4c-5.8,0-11.3,1.5-16.6,4.6c-5.1,3.1-9.3,7.8-12.5,14.1c-3.1,6.3-4.6,14.6-4.6,24.9c0,10.1,1.6,18.5,4.9,25.2c3.2,6.5,7.4,11.3,12.5,14.4s10.6,4.6,16.4,4.6c6.5,0,12-1.4,16.6-4.1c4.8-2.9,8.4-6.7,11-11.3l23.8,8.7c-3.6,6.2-8.1,11.5-13.6,15.9c-5.4,4.3-11.5,7.6-18.2,10C1633.4,186.4,1626.4,187.5,1619.1,187.5z" /> <path d="M1734.2,187.5c-8.2,0-16.1-1.2-23.8-3.6c-7.5-2.4-14.1-5.9-19.9-10.5c-5.6-4.8-9.9-10.8-12.8-18l24.8-9c1.7,6.3,5.7,11.2,12,14.6c6.3,3.4,13,5.1,19.9,5.1c7.7,0,14.2-1.5,19.7-4.6c5.5-3.3,8.2-7.5,8.2-12.8c0-4.6-2-8.2-5.9-10.8s-10.2-4.7-18.9-6.4l-17.1-3.6c-7.5-1.5-14.2-3.8-20.2-6.7c-5.8-2.9-10.4-6.8-13.8-11.6c-3.2-4.8-4.9-10.8-4.9-18c0-7.9,2.4-14.6,7.2-20.3c4.8-5.7,11.1-9.9,18.9-12.8c8-2.9,16.6-4.4,25.8-4.4c11.1,0,21.4,2.2,30.9,6.7c9.6,4.3,16.5,11.2,20.7,20.8l-24.3,9c-2.2-5-6-8.7-11.3-11.3c-5.1-2.6-10.9-3.9-17.4-3.9c-7.2,0-13,1.4-17.4,4.1s-6.7,6.4-6.7,11c0,4.1,1.5,7.3,4.6,9.5c3.2,2.1,8.3,3.9,15.1,5.4l17.4,3.6c9.2,1.9,17.1,4.3,23.5,7.2c6.6,2.9,11.7,6.8,15.1,11.8c3.4,4.8,5.1,11.1,5.1,19c0,8.4-2.5,15.7-7.4,21.8c-4.9,6-11.5,10.6-19.7,13.9C1753.7,185.9,1744.5,187.5,1734.2,187.5z" />    </svg>
+  </div>
+</header>
+
+<section class="oe-hero-analisi">
+  <div class="oe-hero-analisi__media"><img src="assets/hero-audience.jpg" alt="" aria-hidden="true" decoding="async"></div>
+  <div class="oe-container">
+    <div class="oe-hero-analisi__top">
+      <span class="oe-tag-chip oe-tag-chip--lime">Caso studio</span>
+      <img class="oe-hero-analisi__client" src="assets/logo-apa.png" alt="APA — Associazione Produttori Audiovisivi">
+    </div>
+    <h1 class="oe-hero-analisi__title">L'impatto economico e sociale dell'audiovisivo italiano</h1>
+    <p class="oe-hero-analisi__sub">Dove arriva la spesa del comparto e che cosa produce sul resto del Paese: filiere attivate, PIL, lavoro, gettito e benefici sociali.</p>
+    <dl class="oe-hero-analisi__meta">
+      <div><dt>Tipo di analisi</dt><dd>Impatto macroeconomico e ritorno sociale</dd></div>
+      <div><dt>Modello / metodologia</dt><dd>SAM + SROI</dd></div>
+      <div><dt>Fonti</dt><dd>ISTAT, APA, DGCA, CeRTA, Banca d'Italia, Unioncamere, JFC</dd></div>
+      <div><dt>Anno di riferimento</dt><dd>2023</dd></div>
+      <div><dt>Ultimo aggiornamento</dt><dd>Marzo 2026</dd></div>
+    </dl>
+  </div>
+  <p class="oe-hero-analisi__cue" aria-hidden="true">Scorri<span></span></p>
+</section>
+
+<section class="band band--tight">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Executive Summary</span>
+    <div class="kpis">
+      <div class="oe-kpi"><div class="oe-kpi__value oe-num">8,0</div><div class="oe-kpi__label">Spesa del comparto · mld €</div></div>
+      <div class="oe-kpi"><div class="oe-kpi__value oe-num">23,5</div><div class="oe-kpi__label">Valore della produzione · mld €</div></div>
+      <div class="oe-kpi"><div class="oe-kpi__value oe-num">11,8</div><div class="oe-kpi__label">Contributo al PIL · mld €</div></div>
+      <div class="oe-kpi"><div class="oe-kpi__value oe-num">153</div><div class="oe-kpi__label">Occupazione · mila ETP</div></div>
+      <div class="oe-kpi"><div class="oe-kpi__value oe-num">3,2</div><div class="oe-kpi__label">Gettito fiscale · mld €</div></div>
+      <div class="oe-kpi oe-kpi--dark"><div class="oe-kpi__value oe-num">4,5</div><div class="oe-kpi__label">SROI</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band--elev">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Il punto di partenza</span>
+    <h2>Una filiera che pesa più di quanto i suoi conti mostrino</h2>
+    <div class="text-2col">
+      <p>APA voleva una base quantitativa solida per il dibattito pubblico sul ruolo della produzione audiovisiva: non stime dichiarative, ma una misura degli effetti che la spesa del comparto genera lungo le catene di fornitura e sui territori.</p>
+      <p>Il momento lo rende necessario. Le piattaforme di streaming hanno cambiato i modelli distributivi, l'intelligenza artificiale generativa tocca l'intera filiera — dalla scrittura alla post-produzione fino alla gestione dei diritti — e la competizione fiscale internazionale sposta le produzioni verso Paesi con incentivi più generosi, certi e rapidi.</p>
+      <p>Lo studio isola la sola componente audiovisiva (serie TV, documentari e format unscripted, escluso il cinema) e ne segue la spesa attraverso l'economia italiana.</p>
+    </div>
+    <div class="cards">
+      <article class="oe-card"><h4>Piattaforme</h4><p>Modelli distributivi tradizionali superati e pressione competitiva più alta.</p></article>
+      <article class="oe-card"><h4>IA generativa</h4><p>Opportunità di efficienza, ma rischi per la tutela degli autori e per il patrimonio di competenze.</p></article>
+      <article class="oe-card"><h4>Competizione fiscale</h4><p>Le produzioni si spostano dove gli incentivi sono più generosi, certi e rapidi.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Il metodo</span>
+    <h2>Due analisi, due domande diverse</h2>
+    <div class="cols--even cols">
+      <div>
+        <h3>Impatto macroeconomico — modello SAM</h3>
+        <p class="body">Una Social Accounting Matrix costruita sui dati ISTAT dell'economia italiana, con disaggregazione in <strong>63 settori</strong> e a livello <strong>regionale</strong>. Lo shock di domanda è la spesa 2023 del comparto per beni, servizi e personale sul mercato nazionale.</p>
+        <p class="body">Il modello separa i tre canali di trasmissione: <strong>diretto</strong> (fornitori primari), <strong>indiretto</strong> (sub-forniture lungo la filiera) e <strong>indotto</strong> (consumi resi possibili dai redditi generati).</p>
+      </div>
+      <div>
+        <h3>Ritorno sociale — analisi SROI</h3>
+        <p class="body">Economic Cost-Benefit Analysis applicata dentro una Teoria del Cambiamento: identificazione degli outcome per gli stakeholder, misurazione, conversione in euro tramite proxy esplicitate, calcolo del rapporto tra benefici netti e costi attualizzati.</p>
+        <div class="flow">
+          <div><span>Input</span><p>Budget audiovisivo, lavoro, servizi, investimenti.</p></div>
+          <div><span>Output</span><p>Contenuti, audience, ore di fruizione, opere ambientate nei territori.</p></div>
+          <div><span>Outcome</span><p>Benessere, apprendimento, coesione, attrattività, valore culturale.</p></div>
+        </div>
+      </div>
+    </div>
+    <p class="oe-note oe-note--grey" style="margin-top:var(--oe-space-l)"><strong>Le due analisi non si sommano.</strong> Entrambe le grandezze sono monetarie, ma la prima misura effetti contabilizzabili nei conti nazionali e la seconda monetizza outcome sociali e culturali attraverso proxy dichiarate. Lette insieme, descrivono la portata complessiva del comparto.</p>
+  </div>
+</section>
+
+<section class="band band--elev">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">La spesa</span>
+    <h2>12,44 miliardi di spesa, di cui 8 riferibili all'audiovisivo</h2>
+    <p>Nel 2023 la spesa del comparto audiovisivo inclusa la produzione cinematografica ha raggiunto 12,44 miliardi di euro, contabilizzati prevalentemente nei codici ATECO 58.2, 59.1 e 60.2. Sei macrocategorie di spesa sono state isolate e analizzate sulla serie ISTAT 2020–2023.</p>
+    <p>Ristretto il perimetro al solo audiovisivo — serie TV, documentari e unscripted — la spesa stimata supera di poco gli 8 miliardi; il cinema ne assorbe circa 4,4.</p>
+    <div class="stat-inline">
+      <div><b class="oe-num">12,44</b><span>Mld € — comparto completo</span></div>
+      <div><b class="oe-num">8,03</b><span>Mld € — solo audiovisivo</span></div>
+      <div><b class="oe-num">4,41</b><span>Mld € — cinema</span></div>
+      <div><b class="oe-num">9.000</b><span>Imprese attive</span></div>
+    </div>
+    <div class="fig">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 1</span>
+        <p class="fig__title">Composizione della spesa del comparto per macrocategoria, 2020–2023</p>
+      </div>
+      <div data-oe-chart="spesa"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Gli impatti economici</span>
+    <h2>Ogni euro speso ne genera 1,47 di PIL</h2>
+    <p>La spesa dell'audiovisivo agisce come uno shock di domanda: attiva capacità produttiva lungo la filiera, genera redditi e, attraverso i consumi che quei redditi rendono possibili, raggiunge settori lontani dal perimetro del comparto.</p>
+
+    <div class="fig">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 2</span>
+        <p class="fig__title">Impatti diretti, indiretti e indotti sulle dimensioni principali</p>
+      </div>
+      <div data-oe-chart="impatti"></div>
+    </div>
+
+    <div class="oe-table__wrap">
+      <table class="oe-table oe-table--numeric">
+        <thead><tr><th>Dimensione</th><th>Diretto</th><th>Indiretto</th><th>Indotto</th><th>Totale</th></tr></thead>
+        <tbody><tr><td>PIL (mln €)</td><td>4.038,1</td><td>2.704,7</td><td>5.050,0</td><td><strong>11.792,8</strong></td></tr><tr><td>Valore della Produzione (mln €)</td><td>8.028,0</td><td>6.299,8</td><td>9.212,8</td><td><strong>23.540,5</strong></td></tr><tr><td>Occupazione (ETP)</td><td>63.689</td><td>34.881</td><td>54.142</td><td><strong>152.711</strong></td></tr><tr><td>Redditi (mln €)</td><td>3.962,1</td><td>2.653,8</td><td>4.955,0</td><td><strong>11.570,9</strong></td></tr><tr><td>Gettito Fiscale  (mln €)</td><td>1.028,0</td><td>739,3</td><td>1.405,5</td><td><strong>3.172,9</strong></td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="cols" style="margin-top:var(--oe-space-2xl)">
+      <div class="fig" style="margin-top:0">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 3</span>
+        <p class="fig__title">Moltiplicatore del PIL: audiovisivo e scenario controfattuale</p>
+      </div>
+      <div data-oe-chart="moltiplicatore"></div>
+    </div>
+      <div>
+        <h3>Il confronto che conta</h3>
+        <p class="body">Applicando lo stesso modello a uno scenario in cui la medesima spesa fosse allocata secondo il profilo medio della spesa pubblica nazionale, il moltiplicatore del PIL si ferma a 1,30. Il differenziale è di circa il 13%.</p>
+        <p class="body">A parità di risorse, quindi, il sostegno al comparto produce più valore aggiunto, più occupazione e più gettito di un impiego “medio” delle stesse risorse da parte della pubblica amministrazione.</p>
+        <ul class="plain">
+          <li><strong>2,93 €</strong> di valore della produzione per ogni euro speso</li>
+          <li><strong>19 ETP</strong> attivati per ogni milione di euro di spesa</li>
+          <li><strong>8 volte</strong> il Tax Credit erogato al comparto nel 2023 (380 milioni), in gettito generato</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fig">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 4</span>
+        <p class="fig__title">I settori che catturano più valore attivato</p>
+      </div>
+      <div data-oe-chart="settori"></div>
+    </div>
+    <p class="body">I settori che assorbono più produzione non sono quelli che catturano più valore aggiunto. Su PIL e occupazione domina l'<strong>ICT</strong> — software, hardware, strumenti di post-produzione, infrastrutture e piattaforme — mentre sul valore della produzione spicca il comparto audiovisivo stesso. Le <strong>attività immobiliari</strong> risultano seconde per contributo al PIL, trainate dalla componente indotta: parte dei redditi generati dalla filiera rientra nell'economia attraverso affitti e investimenti.</p>
+  </div>
+</section>
+
+<section class="band band--elev">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">La geografia</span>
+    <h2>Dove si concentra e dove si propaga</h2>
+    <p>La spesa si concentra nei poli produttivi storici, ma gli effetti non si fermano lì: filiere e consumi indotti spostano una parte del valore verso regioni che ospitano poca spesa diretta.</p>
+    <div class="fig">
+      <div class="fig__head">
+        <span class="oe-figure-label">Mappa 1</span>
+        <p class="fig__title">Impatto sul PIL per regione</p>
+      </div>
+      <div data-oe-chart="mappa"></div>
+    </div>
+    <div class="cols" style="margin-top:var(--oe-space-2xl)">
+      <div>
+        <h3>La lettura pro capite</h3>
+        <p class="body">In valore assoluto l'impatto più alto è in <strong>Lombardia</strong>, con circa 3.750 milioni di euro di PIL, seguita da Lazio, Piemonte ed Emilia-Romagna.</p>
+        <p class="body">Rapportando alla popolazione le distanze si riducono: al primo posto il <strong>Lazio</strong> con circa 449 € per abitante, poi la Lombardia con 374 € e, in terza posizione, la <strong>Valle d'Aosta</strong> con 245 € — ultima per dimensione economica, ma con un effetto per abitante superiore a quello di regioni molto più grandi.</p>
+        <p class="body">La Toscana è il caso opposto: impatto diretto contenuto, contributo complessivo elevato grazie a forniture, sub-forniture e consumi indotti.</p>
+      </div>
+      <div class="podium">
+        <span class="oe-figure-label">Prime tre per abitante</span>
+        <div class="podium__row"><b class="oe-num--display">449</b><span>Lazio · euro di PIL per abitante</span></div>
+        <div class="podium__row"><b class="oe-num--display">374</b><span>Lombardia</span></div>
+        <div class="podium__row"><b class="oe-num--display">245</b><span>Valle d'Aosta</span></div>
+        <p class="note">Contro una media nazionale di circa 200 € per abitante. Usa il controllo della mappa per passare alla lettura pro capite.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Gli impatti sociali</span>
+    <h2>4,5 euro di benefici sociali per ogni euro speso</h2>
+    <p>Accanto ai risultati economici, lo studio monetizza ciò che i conti nazionali non intercettano: il valore del tempo dedicato alla fruizione, il benessere individuale, la coesione sociale, il patrimonio culturale e le ricadute sull'attrattività turistica dei territori.</p>
+
+    <div class="cols">
+      <div class="fig" style="margin-top:0">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 5</span>
+        <p class="fig__title">Composizione dei benefici sociali</p>
+      </div>
+      <div data-oe-chart="benefici"></div>
+    </div>
+      <div>
+        <h3>Da dove arriva il valore</h3>
+        <p class="body">Il <strong>valore edonico del tempo</strong> pesa per il 63,5% del totale: un'audience media di 8,1 milioni di spettatori per produzione, circa 7 ore di visione per le opere scripted e 20 per le unscripted.</p>
+        <p class="body">La <strong>sfera personale</strong> vale il 18,8%: benessere psicofisico (proxy: un'ora di mindfulness, 10 €), apprendimento linguistico (lezione individuale di inglese, 49 €), coesione sociale (team building culturale, 30 €).</p>
+        <p class="body"><strong>Cineturismo e cultura</strong> valgono il 17,7%: 8,5 milioni di cineturisti e il valore dell'identità culturale, stimato con la disponibilità a pagare per l'ingresso a un museo (8,9 €).</p>
+      </div>
+    </div>
+
+    <div class="oe-table__wrap">
+      <table class="oe-table tab-mix">
+        <thead><tr><th>Famiglia</th><th>Voce</th><th>Valore (mld €)</th><th>Quota</th></tr></thead>
+        <tbody><tr><td>Valore del tempo</td><td>Televisione — opere scripted</td><td>13,4</td><td>41,2%</td></tr><tr><td>Valore del tempo</td><td>Opere unscripted</td><td>5,2</td><td>16,1%</td></tr><tr><td>Valore del tempo</td><td>Piattaforme VoD — opere scripted</td><td>2,0</td><td>6,3%</td></tr><tr><td>Sfera personale</td><td>Benessere psicofisico</td><td>4,8</td><td>14,7%</td></tr><tr><td>Sfera personale</td><td>Coesione sociale</td><td>1,2</td><td>3,6%</td></tr><tr><td>Sfera personale</td><td>Apprendimento linguistico</td><td>0,1</td><td>0,5%</td></tr><tr><td>Cineturismo e cultura</td><td>Identità culturale</td><td>4,3</td><td>13,3%</td></tr><tr><td>Cineturismo e cultura</td><td>Cineturismo — italiani day user</td><td>1,0</td><td>3,1%</td></tr><tr><td>Cineturismo e cultura</td><td>Cineturismo — italiani pernottanti</td><td>0,2</td><td>0,7%</td></tr><tr><td>Cineturismo e cultura</td><td>Cineturismo — stranieri</td><td>0,2</td><td>0,6%</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="fig">
+      <div class="fig__head">
+        <span class="oe-figure-label">Grafico 6</span>
+        <p class="fig__title">Dal beneficio lordo al beneficio netto: il calcolo dello SROI</p>
+      </div>
+      <div data-oe-chart="sroi"></div>
+    </div>
+    <p class="oe-note oe-note--grey"><strong>Lo SROI non è un contributo al PIL.</strong> Rende leggibile in euro il valore sociale e culturale di outcome che, per loro natura, non entrano nei conti nazionali. Le stime dipendono da proxy e assunzioni esplicitate nella nota metodologica e vanno lette come ordine di grandezza.</p>
+  </div>
+</section>
+
+<section class="band band--dark">
+  <div class="oe-container">
+    <span class="oe-tag-chip oe-tag-chip--lime">Consegnato</span>
+    <h2 style="margin-top:var(--oe-space-m)">Che cosa è stato prodotto</h2>
+    <p class="lead">Un impianto analitico completo e i materiali per portarlo nel dibattito pubblico.</p>
+    <div class="deliver" style="margin-top:var(--oe-space-xl)">
+      <article><h4>Modello SAM</h4><p>Matrice di contabilità sociale dell'economia italiana, 63 settori e 20 regioni, calibrata sulla spesa 2023 del comparto.</p></article>
+      <article><h4>Analisi SROI</h4><p>Teoria del Cambiamento, mappatura degli stakeholder, proxy dichiarate e calcolo dei benefici netti attualizzati.</p></article>
+      <article><h4>15 visualizzazioni</h4><p>Grafici, mappe regionali e matrici settore-territorio, tutte navigabili e documentate.</p></article>
+      <article><h4>Pagina e documento</h4><p>Pagina di risultati pubblicata, note metodologiche e documento integrale con i dataset completi.</p></article>
+    </div>
+    <div class="stat-inline">
+      <div><b class="oe-num">63</b><span>Settori modellati</span></div>
+      <div><b class="oe-num">20</b><span>Regioni</span></div>
+      <div><b class="oe-num">1.260</b><span>Combinazioni settore-regione</span></div>
+      <div><b class="oe-num">4</b><span>Anni di serie storica</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="oe-cta">
+  <div>
+    <h2 class="oe-cta__title">Quanto vale la spesa del vostro settore?</h2>
+    <p class="oe-cta__text">Misuriamo impatti macroeconomici e ritorno sociale con modelli riconosciuti e dati verificabili.</p>
+  </div>
+  <a class="oe-btn oe-btn--inverse oe-btn--lg" href="https://www.openeconomics.eu/">Parliamone</a>
+</section>
+
+<footer class="oe-footer oe-footer--analisi">
+  <div class="oe-footer__inner">
+    <div class="oe-footer__top">
+      <div class="oe-footer__brand">
+        <svg class="oe-footer__logo"  viewBox="0 0 1789 226" fill="currentColor" role="img" aria-label="OpenEconomics" xmlns="http://www.w3.org/2000/svg"     > <path d="M90.6,9.5c-49,0-88.7,39.8-88.7,89c0,49.1,39.7,89,88.7,89s88.7-39.8,88.7-89C179.3,49.3,139.6,9.5,90.6,9.5z M38.2,151V46h104.6v105H38.2z" /> <path d="M199.5,226V57H221l5.6,19.3c2.6-4.6,5.9-8.6,10-11.8c4.1-3.3,8.7-5.7,13.8-7.4s10.7-2.6,16.6-2.6c10.1,0,19.3,2.7,27.6,8c8.4,5.3,15,12.9,20,22.9c4.9,9.9,7.4,21.8,7.4,35.7s-2.5,25.9-7.4,36c-4.9,9.9-11.6,17.6-20,22.9c-8.4,5.1-17.6,7.7-27.6,7.7c-6,0-11.5-0.9-16.6-2.6c-5.1-1.7-9.7-4.2-13.8-7.4c-4.1-3.4-7.4-7.4-10-12.1V226H199.5z M259.1,165.1c9.9,0,17.9-3.9,24-11.6c6.3-7.7,9.5-18.6,9.5-32.6s-3.2-24.9-9.5-32.6c-6.1-7.7-14.2-11.6-24-11.6c-9.9,0-18,3.7-24.3,11c-6.1,7.4-9.2,18.3-9.2,32.9c0,14.4,3.1,25.4,9.2,33.1C241.1,161.4,249.2,165.1,259.1,165.1z" /> <path d="M399.1,187.5c-13.5,0-25.1-2.8-34.8-8.5c-9.6-5.8-17-13.7-22.3-23.6c-5.1-10.1-7.7-21.7-7.7-34.7c0-13.5,2.8-25.3,8.4-35.2c5.8-9.9,13.5-17.6,23-22.9c9.7-5.5,20.6-8.2,32.5-8.2c10.1,0,19,2,26.9,5.9c8,3.9,14.7,9.3,20,16.2c5.3,6.8,9.1,14.7,11.5,23.6c2.4,8.7,3.2,18.1,2.6,28H362c0.9,7,2.6,12.9,5.1,17.7c2.6,4.8,5.5,8.6,9,11.3c3.6,2.7,7.3,4.7,11.3,5.9c4.1,1.2,7.9,1.8,11.5,1.8c6.7,0,12.3-1,16.9-3.1c4.8-2.2,8.5-5.1,11.3-8.5l24,7.7c-5.1,8.2-12.2,14.7-21.2,19.5C420.8,185.2,410.5,187.5,399.1,187.5z M362.3,108.6h69.8c-0.2-5.8-1.7-11.1-4.6-15.9c-2.7-5-6.6-8.9-11.5-11.8c-4.9-3.1-10.7-4.6-17.4-4.6c-5.3,0-10.6,1-15.9,3.1c-5.1,2.1-9.6,5.5-13.3,10.3C365.8,94.2,363.5,100.6,362.3,108.6z" /> <path d="M477.9,184.4V57h21.7l5.4,18.5c2.2-3.8,5.1-7.2,8.7-10.3c3.8-3.3,8.2-5.8,13.3-7.7c5.3-2.1,11.4-3.1,18.4-3.1c10.4,0,18.7,2.1,24.8,6.2s10.6,9.9,13.3,17.5c2.7,7.5,4.1,16.4,4.1,26.7v79.6h-27.4v-72.2c0-6.3-0.5-12.2-1.5-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-9-4.9-16.6-4.9c-9.6,0-17,3.4-22.3,10.3c-5.3,6.7-7.9,16.5-7.9,29.5v67.8L477.9,184.4L477.9,184.4z" /> <path d="M645.3,158.7V112h-25.9v72.5H737v-25.7h-91.7V158.7z M736.1,38.3V12.6H619.4v71.9h25.9V38.3H736.1z M714.6,84.5h-69.3V112h69.3V84.5z" /> <path d="M808.6,187.5c-12.8,0-23.8-2.8-33-8.5c-9-5.8-16-13.7-21-23.6c-4.8-10.1-7.2-21.7-7.2-34.7c0-12.8,2.6-24.2,7.7-34.2c5.3-10.1,12.6-18,22-23.6c9.4-5.7,20.4-8.5,33-8.5c7.5,0,14.5,1.3,21,3.9c6.7,2.4,12.5,5.8,17.7,10.3c5.1,4.5,9.2,9.8,12.3,16.2l-23.8,8.7c-2.6-5.3-6.3-9.3-11.3-12.1c-4.8-2.9-10.1-4.4-16.1-4.4c-5.8,0-11.3,1.5-16.6,4.6c-5.1,3.1-9.3,7.8-12.5,14.1c-3.1,6.3-4.6,14.6-4.6,24.9c0,10.1,1.6,18.5,4.9,25.2c3.2,6.5,7.4,11.3,12.5,14.4c5.1,3.1,10.6,4.6,16.4,4.6c6.5,0,12-1.4,16.6-4.1c4.8-2.9,8.4-6.7,11-11.3l23.8,8.7c-3.6,6.2-8.1,11.5-13.6,15.9c-5.5,4.3-11.5,7.6-18.2,10C823,186.4,816,187.5,808.6,187.5z" /> <path d="M929.2,187.5c-7.8,0-15.5-1.3-23-3.9c-7.5-2.6-14.2-6.6-20.2-12.1s-10.8-12.4-14.6-20.8c-3.6-8.4-5.4-18.3-5.4-29.8s1.8-21.4,5.4-29.8c3.8-8.4,8.6-15.3,14.6-20.8s12.7-9.5,20.2-12.1s15.2-3.9,23-3.9s15.4,1.3,22.8,3.9c7.5,2.6,14.2,6.6,20.2,12.1s10.7,12.4,14.3,20.8c3.8,8.4,5.6,18.3,5.6,29.8s-1.9,21.4-5.6,29.8c-3.6,8.4-8.4,15.3-14.3,20.8c-6,5.5-12.7,9.5-20.2,12.1C944.7,186.2,937.1,187.5,929.2,187.5z M929.2,164.9c6,0,11.5-1.5,16.6-4.4c5.3-3.1,9.6-7.9,12.8-14.4s4.9-14.9,4.9-25.2s-1.6-18.6-4.9-24.9c-3.2-6.5-7.5-11.3-12.8-14.4c-5.1-3.1-10.7-4.6-16.6-4.6c-6,0-11.6,1.5-16.9,4.6c-5.3,3.1-9.6,7.9-12.8,14.4c-3.2,6.3-4.9,14.6-4.9,24.9s1.6,18.7,4.9,25.2c3.2,6.5,7.5,11.3,12.8,14.4C917.6,163.4,923.3,164.9,929.2,164.9z" /> <path d="M1012.3,184.4V57h21.8l5.4,18.5c2.2-3.8,5.1-7.2,8.7-10.3c3.8-3.3,8.2-5.8,13.3-7.7c5.3-2.1,11.4-3.1,18.4-3.1c10.4,0,18.7,2.1,24.8,6.2c6.1,4.1,10.6,9.9,13.3,17.5c2.7,7.5,4.1,16.4,4.1,26.7v79.6h-27.4v-72.2c0-6.3-0.5-12.2-1.5-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-8.9-4.9-16.6-4.9c-9.6,0-17,3.4-22.2,10.3c-5.3,6.7-7.9,16.5-7.9,29.5v67.8L1012.3,184.4L1012.3,184.4z" /> <path d="M1204.8,187.5c-7.8,0-15.5-1.3-23-3.9c-7.5-2.6-14.2-6.6-20.2-12.1s-10.8-12.4-14.6-20.8c-3.6-8.4-5.4-18.3-5.4-29.8s1.8-21.4,5.4-29.8c3.8-8.4,8.6-15.3,14.6-20.8s12.7-9.5,20.2-12.1s15.2-3.9,23-3.9s15.4,1.3,22.8,3.9c7.5,2.6,14.2,6.6,20.2,12.1s10.8,12.4,14.3,20.8c3.8,8.4,5.6,18.3,5.6,29.8s-1.9,21.4-5.6,29.8c-3.6,8.4-8.4,15.3-14.3,20.8c-6,5.5-12.7,9.5-20.2,12.1C1220.2,186.2,1212.6,187.5,1204.8,187.5z M1204.8,164.9c6,0,11.5-1.5,16.6-4.4c5.3-3.1,9.5-7.9,12.8-14.4c3.2-6.5,4.9-14.9,4.9-25.2s-1.6-18.6-4.9-24.9c-3.2-6.5-7.5-11.3-12.8-14.4c-5.1-3.1-10.7-4.6-16.6-4.6c-6,0-11.6,1.5-16.9,4.6s-9.6,7.9-12.8,14.4c-3.2,6.3-4.9,14.6-4.9,24.9s1.6,18.7,4.9,25.2c3.2,6.5,7.5,11.3,12.8,14.4C1193.2,163.4,1198.8,164.9,1204.8,164.9z" /> <path d="M1287.8,184.4V57h21.8l5.4,18.5c2.2-3.8,5-7.2,8.4-10.3c3.6-3.3,7.8-5.8,12.8-7.7c4.9-2.1,10.6-3.1,16.9-3.1c9.9,0,17.8,2,23.8,5.9c6,3.8,10.4,9.2,13.3,16.2c4.9-7.7,11.1-13.3,18.4-16.7c7.5-3.6,15.7-5.4,24.6-5.4c10.2,0,18.3,2.1,24.3,6.2s10.3,9.9,13,17.5s4.1,16.4,4.1,26.7v79.6h-27.1v-72.2c0-6.3-0.6-12.2-1.8-17.5c-1-5.5-3.3-9.8-6.9-13.1c-3.4-3.3-8.8-4.9-16.1-4.9c-8.7,0-15.5,3.3-20.5,10c-4.9,6.5-7.4,16.2-7.4,29v68.6h-27.1v-72.2c0-6.3-0.6-12.2-1.8-17.5c-1-5.5-3.2-9.8-6.7-13.1c-3.4-3.3-8.8-4.9-16.1-4.9c-5.8,0-10.8,1.5-15.1,4.6c-4.3,2.9-7.5,7.4-9.7,13.4c-2.2,5.8-3.3,12.9-3.3,21.3v68.3h-27.2V184.4z" /> <path d="M1510,184.4V78.3h-18.9V57h46.3v127.4H1510z" /> <path d="M1505.9,1h31.7v31.8h-31.7V1z" /> <path d="M1619.1,187.5c-12.8,0-23.8-2.8-33-8.5c-9-5.8-16-13.7-21-23.6c-4.8-10.1-7.2-21.7-7.2-34.7c0-12.8,2.6-24.2,7.7-34.2c5.3-10.1,12.6-18,22-23.6c9.4-5.7,20.4-8.5,33-8.5c7.5,0,14.5,1.3,21,3.9c6.7,2.4,12.5,5.8,17.7,10.3c5.1,4.5,9.2,9.8,12.3,16.2l-23.8,8.7c-2.6-5.3-6.3-9.3-11.3-12.1c-4.8-2.9-10.2-4.4-16.1-4.4c-5.8,0-11.3,1.5-16.6,4.6c-5.1,3.1-9.3,7.8-12.5,14.1c-3.1,6.3-4.6,14.6-4.6,24.9c0,10.1,1.6,18.5,4.9,25.2c3.2,6.5,7.4,11.3,12.5,14.4s10.6,4.6,16.4,4.6c6.5,0,12-1.4,16.6-4.1c4.8-2.9,8.4-6.7,11-11.3l23.8,8.7c-3.6,6.2-8.1,11.5-13.6,15.9c-5.4,4.3-11.5,7.6-18.2,10C1633.4,186.4,1626.4,187.5,1619.1,187.5z" /> <path d="M1734.2,187.5c-8.2,0-16.1-1.2-23.8-3.6c-7.5-2.4-14.1-5.9-19.9-10.5c-5.6-4.8-9.9-10.8-12.8-18l24.8-9c1.7,6.3,5.7,11.2,12,14.6c6.3,3.4,13,5.1,19.9,5.1c7.7,0,14.2-1.5,19.7-4.6c5.5-3.3,8.2-7.5,8.2-12.8c0-4.6-2-8.2-5.9-10.8s-10.2-4.7-18.9-6.4l-17.1-3.6c-7.5-1.5-14.2-3.8-20.2-6.7c-5.8-2.9-10.4-6.8-13.8-11.6c-3.2-4.8-4.9-10.8-4.9-18c0-7.9,2.4-14.6,7.2-20.3c4.8-5.7,11.1-9.9,18.9-12.8c8-2.9,16.6-4.4,25.8-4.4c11.1,0,21.4,2.2,30.9,6.7c9.6,4.3,16.5,11.2,20.7,20.8l-24.3,9c-2.2-5-6-8.7-11.3-11.3c-5.1-2.6-10.9-3.9-17.4-3.9c-7.2,0-13,1.4-17.4,4.1s-6.7,6.4-6.7,11c0,4.1,1.5,7.3,4.6,9.5c3.2,2.1,8.3,3.9,15.1,5.4l17.4,3.6c9.2,1.9,17.1,4.3,23.5,7.2c6.6,2.9,11.7,6.8,15.1,11.8c3.4,4.8,5.1,11.1,5.1,19c0,8.4-2.5,15.7-7.4,21.8c-4.9,6-11.5,10.6-19.7,13.9C1753.7,185.9,1744.5,187.5,1734.2,187.5z" />    </svg>
+        <p class="oe-footer__tagline">Enabling adaptation. Empowering impact. With platforms, strategy, and trust.</p>
+      </div>
+      <div class="oe-footer__disclaimer">
+        <span class="oe-footer__disclaimer-label">Condizioni d'uso</span>
+        Il presente documento e tutte le informazioni in esso contenute possono essere divulgati, a condizione che la distribuzione avvenga citando OpenEconomics come fonte. Le informazioni sono fornite a scopo puramente informativo e non implicano alcuna garanzia o impegno da parte di OpenEconomics. Le analisi economiche contenute nel documento sono state elaborate sulla base di fonti pubbliche autorevoli e fornitori di dati specialistici, e sono state realizzate con l’obiettivo di offrire una valutazione professionale, oggettiva e prudenziale in linea con le prassi metodologiche di comparto. Al documento e ai suoi contenuti si applicano il copyright e le norme in materia di protezione dei dati personali.
+      </div>
+    </div>
+    <hr class="oe-footer__rule">
+    <div class="oe-footer__bottom">
+      <p class="oe-footer__meta">© 2026 OpenEconomics&nbsp;| Partita Iva 12504821005</p>
+      <nav class="oe-footer__links" aria-label="Note legali">
+        <a class="oe-footer__link" href="https://www.openeconomics.eu/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+        <a class="oe-footer__link" href="https://www.openeconomics.eu/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js" defer></script>
+</body>
+</html>

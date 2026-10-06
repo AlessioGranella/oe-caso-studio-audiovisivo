@@ -65,11 +65,22 @@ a{color:var(--oe-link)}
 /* ---- kpi ---- */
 .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--oe-space-s)}
 .kpis--wide{grid-template-columns:repeat(2,1fr);margin-top:var(--oe-space-s)}
-@media (max-width:1199.98px){ .kpis{grid-template-columns:repeat(3,1fr)} }
-@media (max-width:640px){ .kpis{grid-template-columns:repeat(2,1fr)} .kpis--wide{grid-template-columns:1fr} }
 .kpis--3{grid-template-columns:repeat(3,1fr)}
 .kpis--6{grid-template-columns:repeat(3,1fr)}
-@media (max-width:899.98px){ .kpis--3{grid-template-columns:1fr} }
+@media (max-width:1199.98px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:899.98px){
+  .kpis--3{grid-template-columns:repeat(2,1fr)}
+  .kpis--6{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpis--wide{grid-template-columns:1fr}
+}
+@media (max-width:480px){
+  .kpis,.kpis--3,.kpis--6{grid-template-columns:1fr}
+}
 
 /* le etichette su due righe non devono sfalsare i numeri */
 .kpis .oe-kpi--titled .oe-kpi__label{min-height:2.6em}
@@ -80,7 +91,7 @@ a{color:var(--oe-link)}
   z-index:20;background:var(--oe-bg-dark);color:#fff;font-size:12.5px;line-height:1.45;font-weight:300;
   padding:10px 12px;opacity:0;visibility:hidden;transition:opacity .12s linear;
   box-shadow:0 4px 12px rgba(39,0,101,.18)}
-.oe-kpi[data-tip]:hover::after,.oe-kpi[data-tip]:focus-visible::after{opacity:1;visibility:visible}
+.oe-kpi[data-tip]:hover::after,.oe-kpi[data-tip]:focus::after{opacity:1;visibility:visible}
 .oe-kpi[data-tip]:focus-visible{box-shadow:0 0 0 2px var(--oe-accent)}
 
 /* ---- due colonne testo/elenco ---- */
@@ -199,9 +210,18 @@ a{color:var(--oe-link)}
 @media (max-width:767.98px){
   .site__inner{flex-wrap:wrap;row-gap:var(--oe-space-xs)}
   .cards{grid-template-columns:1fr}
-  .fig__embed iframe{height:var(--hm,var(--h,600px))}
+  .band{padding:var(--oe-space-2xl) 0}
+  .fig{padding:var(--oe-space-s);margin-top:var(--oe-space-m)}
+  /* i grafici non si rimpiccioliscono fino a diventare illeggibili:
+     tengono una larghezza minima e la fascia scorre in orizzontale */
+  [data-oe-chart]{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .oe-chart:not(.oe-map__svg){min-width:620px}
+  .oe-map{gap:var(--oe-space-m)}
+  .oe-map__svg{min-width:0;max-height:380px;margin-inline:auto}
+  .fig__ctrl{gap:var(--oe-space-xs)}
+  .oe-segment{flex-wrap:wrap}
+  .oe-kpi[data-tip]::after{left:0;right:auto;width:min(86vw,320px)}
 }
-@media print{ .site,.oe-cta{display:none} }
 
 </style>
 </head>

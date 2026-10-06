@@ -27,6 +27,10 @@ img,svg{max-width:100%}
 .band{padding:var(--oe-space-3xl) 0}
 .band--tight{padding:var(--oe-space-2xl) 0}
 .band--elev{background:var(--oe-bg-elev)}
+/* nota metodologica: fondo bluette-050, è il colore che distingue questo tipo di sezione */
+.band--nota{background:var(--oe-bg-tint)}
+.band--nota .fig{background:var(--oe-white)}
+.band--nota .oe-note--grey{background:var(--oe-white)}
 .band--dark{background:var(--oe-bg-dark);color:var(--oe-white)}
 .band--dark h2,.band--dark h3,.band--dark p,.band--dark li{color:var(--oe-white)}
 .band--dark .lead{color:rgba(255,255,255,.82)}
@@ -746,8 +750,9 @@ a{color:var(--oe-link)}
   </div>
 </section>
 
-<!-- ============================================================ METODOLOGIA · grigio -->
-<section class="band band--elev">
+<!-- ============================================================ METODOLOGIA · bluette-050
+     Regola fissa: le sezioni di nota metodologica hanno sempre questo fondo. -->
+<section class="band band--nota">
   <div class="oe-container">
     <span class="oe-tag-chip oe-tag-chip--lime">Nota metodologica</span>
     <h2>Metodologia</h2>

@@ -21,14 +21,23 @@ cd src && python3 buildpage.py
 
 ## Grafici
 
-I quindici grafici sono gli **embed Flourish originali** della pagina di partenza
-(`flo.uri.sh/visualisation/<id>/embed`), con lo stesso markup e le stesse altezze del
-sorgente. Hanno il loro fondo blu scuro e la loro palette: non seguono i colori del design
-system perché la richiesta era di usare esattamente le stesse visualizzazioni.
+I quindici grafici sono **ricostruiti dal motore del design system** (`js/charts.js`), a
+partire dai dati originali delle visualizzazioni Flourish della pagina di partenza
+(`src/flourish2.json.gz`). Stessi dati, stessi tipi e stesso ordine degli originali, ma font
+Atkinson e Hedvig, palette bluette con rampa ordinale per diretto/indiretto/indotto, scala
+sequenziale per le mappe e magenta `#C300C3` per la sola voce di costo del waterfall.
 
-Nota: gli embed Flourish non vengono disegnati nei browser headless, quindi non compaiono
-negli screenshot automatici. In un browser normale si caricano regolarmente; gli URL sono
-stati verificati uno per uno (tutti 200).
+Tipi disponibili nel motore: `hbars`, `compare`, `waterfall`, `map`, `donut`, `grid`
+(matrice a bolle) e `treemap`. Tutti con tooltip su mouse, tocco e tastiera, legenda attiva
+e controlli segmentati dove ci sono più viste.
+
+```bash
+cd src && gunzip -kf flourish2.json.gz && python3 mkdata.py && python3 buildpage.py
+```
+
+Due semplificazioni rispetto agli originali, per leggibilità, dichiarate anche sotto i
+grafici: il grafico per settore mostra i primi 15 settori su 63 e il treemap i primi 24, con
+le tre regioni principali nel tooltip.
 
 ## Hero
 

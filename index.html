@@ -120,6 +120,78 @@ a{color:var(--oe-link)}
 /* ---- note ---- */
 .oe-note{margin-top:var(--oe-space-l)}
 
+
+/* ---- numeri ----
+   Hedvig solo sui numeri in evidenza (stat, podio, cifre grandi dei grafici).
+   Etichette delle barre, classifica della mappa e tabelle restano in Atkinson tabulare. */
+.oe-chart .oe-val{font-family:var(--oe-font-sans);font-weight:500;font-variant-numeric:tabular-nums}
+.oe-chart .oe-val--display{font-family:var(--oe-font-serif);font-weight:400;letter-spacing:-.01em}
+.stat-inline b{font-family:var(--oe-font-serif);font-weight:400;letter-spacing:-.01em}
+.oe-rank b{font-family:var(--oe-font-sans);font-weight:500;font-size:13px}
+
+/* ---- controlli dei grafici ---- */
+.fig__ctrl{display:flex;align-items:center;gap:var(--oe-space-s);flex-wrap:wrap;
+  margin:0 0 var(--oe-space-s)}
+.fig__ctrl-label{font-family:var(--oe-font-mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--oe-fg-muted)}
+.oe-segment__btn:focus-visible{outline:2px solid var(--oe-accent);outline-offset:2px}
+
+/* ---- grafici: stati interattivi ---- */
+.oe-chart{display:block;width:100%;overflow:hidden}
+.oe-chart .oe-bar{transition:width .38s cubic-bezier(.2,.7,.2,1),opacity .14s linear}
+.oe-chart .oe-row,.oe-chart .oe-region{cursor:default;outline:none}
+.oe-chart .oe-row:hover .oe-bar,.oe-chart .oe-row:focus-visible .oe-bar{opacity:.86}
+.oe-chart .oe-row:focus-visible .oe-lab,.oe-chart .oe-row:focus-visible .oe-val{font-weight:600}
+.oe-chart .oe-lg{cursor:pointer}
+.oe-chart[data-focus] .oe-bar{opacity:.22}
+.oe-chart[data-focus="0"] .oe-bar[data-series="0"],
+.oe-chart[data-focus="1"] .oe-bar[data-series="1"],
+.oe-chart[data-focus="2"] .oe-bar[data-series="2"]{opacity:1}
+.oe-chart .oe-src{font-family:var(--oe-font-mono);letter-spacing:.04em}
+[data-oe-chart].is-in{animation:figIn .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes figIn{from{opacity:0}to{opacity:1}}
+
+/* ---- mappa + classifica ---- */
+.oe-map{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:var(--oe-space-l);align-items:start}
+@media (max-width:767.98px){ .oe-map{grid-template-columns:1fr} }
+.oe-map__svg{max-height:520px}
+.oe-region{transition:fill .32s cubic-bezier(.2,.7,.2,1)}
+.oe-region.is-on{stroke:var(--oe-accent);stroke-width:1.6}
+.oe-rank{list-style:none;margin:0;padding:0;columns:2;column-gap:var(--oe-space-l);font-size:13px}
+@media (max-width:560px){ .oe-rank{columns:1} }
+.oe-rank__i{display:flex;align-items:center;gap:8px;padding:3px 4px;break-inside:avoid;cursor:default}
+.oe-rank__i i{width:10px;height:10px;flex:0 0 auto}
+.oe-rank__i span{flex:1 1 auto;color:var(--oe-fg-soft)}
+.oe-rank__i b{font-variant-numeric:tabular-nums}
+.oe-rank__i.is-on{background:var(--oe-accent-soft)}
+.oe-chart__foot{display:flex;flex-wrap:wrap;gap:var(--oe-space-s);justify-content:space-between;
+  margin:var(--oe-space-s) 0 0;font-size:11.5px;color:var(--oe-fg-muted)}
+.oe-chart__foot .oe-src{font-family:var(--oe-font-mono);letter-spacing:.04em}
+
+/* ---- tooltip ---- */
+.oe-tip{position:fixed;top:0;left:0;z-index:60;pointer-events:none;opacity:0;
+  transition:opacity .12s linear;background:var(--oe-bg-dark);color:#fff;padding:10px 12px;
+  min-width:180px;max-width:280px;box-shadow:0 4px 12px rgba(39,0,101,.18)}
+.oe-tip.is-on{opacity:1}
+.oe-tip__t{font-family:var(--oe-font-sans);font-weight:600;font-size:13px;margin-bottom:2px}
+.oe-tip__s{font-family:var(--oe-font-mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.04em;color:var(--oe-on-dark-accent);margin-bottom:6px}
+.oe-tip__r{display:flex;justify-content:space-between;gap:12px;font-size:12.5px;line-height:1.5;
+  color:rgba(255,255,255,.82)}
+.oe-tip__r b{font-family:var(--oe-font-sans);font-weight:600;font-size:12.5px;color:#fff;
+  font-variant-numeric:tabular-nums}
+.oe-tip__k{display:flex;align-items:center;gap:6px}
+.oe-tip__k i{width:9px;height:9px;display:inline-block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+
+@media (prefers-reduced-motion: reduce){
+  .oe-chart .oe-bar,.oe-region{transition:none}
+  [data-oe-chart].is-in{animation:none}
+}
+
+
+
+@media print{ .site,.oe-cta,.fig__ctrl,.oe-hero-analisi__cue{display:none} }
+
 @media (max-width:767.98px){
   .site__inner{flex-wrap:wrap;row-gap:var(--oe-space-xs)}
   .cards{grid-template-columns:1fr}
@@ -278,9 +350,7 @@ a{color:var(--oe-link)}
 
     <div class="fig">
       <div class="fig__head"><span class="oe-figure-label">Grafico 1</span></div>
-      <div class="fig__embed" style="--h:800px">
-        <iframe src="https://flo.uri.sh/visualisation/27513134/embed" title="Spesa del settore cinematografico e audiovisivo" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="spesa"></div>
     </div>
 
     <p>Complessivamente, nel 2023 la spesa del comparto audiovisivo inclusa la produzione cinematografica ha raggiunto 12,44 miliardi di euro. Le spese vengono contabilizzate prevalentemente nel settore ATECO “Servizi di informazione e comunicazione” (J), con focus su:</p>
@@ -302,9 +372,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 2</span></div>
-      <div class="fig__embed" style="--h:600px">
-        <iframe src="https://flo.uri.sh/visualisation/27568010/embed" title="Spesa del settore audiovisivo e cinematografico nel 2023" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="spesaPerimetro"></div>
     </div>
 
     <p>Poiché la spesa complessiva include anche il comparto cinematografico, per le finalità di questa analisi il perimetro è stato ristretto al solo audiovisivo (serie TV, documentari e programmi unscripted). Per stimare il valore della spesa riferibile esclusivamente a tale componente sono stati utilizzati:</p>
@@ -325,9 +393,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Mappa 1</span></div>
-      <div class="fig__embed" style="--h:1500px">
-        <iframe src="https://flo.uri.sh/visualisation/27513124/embed" title="Disaggregazione geografica della spesa" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="mappaSpesa"></div>
     </div>
 
     <p>Per ottenere una distribuzione territoriale coerente della spesa audiovisiva (escluso il cinema), è stato utilizzato il valore aggiunto storico del comparto, disaggregato a livello regionale sulla base dei dati ISTAT. Questo indicatore risulta coerente con la distribuzione territoriale delle opere e con il numero di imprese per regione.</p>
@@ -393,9 +459,7 @@ a{color:var(--oe-link)}
 
     <div class="fig">
       <div class="fig__head"><span class="oe-figure-label">Grafico 3</span></div>
-      <div class="fig__embed" style="--h:600px">
-        <iframe src="https://flo.uri.sh/visualisation/27513147/embed" title="Impatti diretti, indiretti e indotti sulle dimensioni principali" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="impatti"></div>
     </div>
 
     <p>L'analisi evidenzia che ogni euro speso nel settore audiovisivo genera un contributo al PIL pari a 1,47 euro, incorporando gli effetti diretti, indiretti e indotti lungo la filiera attivata.</p>
@@ -413,17 +477,13 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 4</span></div>
-      <div class="fig__embed" style="--h:2000px">
-        <iframe src="https://flo.uri.sh/visualisation/27513141/embed" title="Impatti diretti, indiretti e indotti per settore" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="settori"></div>
     </div>
 
     <h3>Impatti diretti, indiretti e indotti per regione</h3>
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 5</span></div>
-      <div class="fig__embed" style="--h:1200px">
-        <iframe src="https://flo.uri.sh/visualisation/27513145/embed" title="Impatti diretti, indiretti e indotti per regione" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="regioni"></div>
     </div>
 
     <p>Il grafico riporta l'impatto della spesa audiovisiva su PIL, valore della produzione e occupazione per regione, distinguendo le tre componenti che compongono l'effetto complessivo: diretta, indiretta e indotta. Questa scomposizione consente di leggere non solo dove si concentra la spesa, ma anche come essa si propaghi sul territorio attraverso le filiere e la reimmissione dei redditi nell'economia.</p>
@@ -444,9 +504,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Mappa 2</span></div>
-      <div class="fig__embed" style="--h:1500px">
-        <iframe src="https://flo.uri.sh/visualisation/27513153/embed" title="Disaggregazione geografica del PIL complessivo" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="mappaPil"></div>
     </div>
 
     <p>Nel complesso, l'impatto geografico della spesa audiovisiva tende a concentrarsi nelle regioni che presentano un contributo più elevato in termini di PIL e una maggiore densità di filiere produttive, in linea con la localizzazione dei principali centri di produzione italiani.</p>
@@ -455,9 +513,7 @@ a{color:var(--oe-link)}
     <h3>L'impatto per abitante: una lettura della ricaduta distribuita sul territorio</h3>
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Mappa 3</span></div>
-      <div class="fig__embed" style="--h:1500px">
-        <iframe src="https://flo.uri.sh/visualisation/27513163/embed" title="Disaggregazione geografica del PIL pro capite" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="mappaProCapite"></div>
     </div>
 
     <p>Se si osserva l'impatto pro capite, le differenze tra le regioni si attenuano sensibilmente. Questo passaggio è importante perché consente di distinguere la “scala” economica (che naturalmente premia i grandi poli) dalla capacità del settore di generare ricadute distribuite su tutto il territorio.</p>
@@ -473,9 +529,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 6</span></div>
-      <div class="fig__embed" style="--h:1200px">
-        <iframe src="https://flo.uri.sh/visualisation/27513165/embed" title="Articolazione strutturale degli impatti" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="matrice"></div>
     </div>
 
     <div class="text-2col">
@@ -485,9 +539,7 @@ a{color:var(--oe-link)}
 
     <div class="fig">
       <div class="fig__head"><span class="oe-figure-label">Grafico 7</span></div>
-      <div class="fig__embed" style="--h:1200px">
-        <iframe src="https://flo.uri.sh/visualisation/27513168/embed" title="Articolazione settoriale degli impatti regionali" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="treemapSettori"></div>
     </div>
   </div>
 </section>
@@ -606,9 +658,7 @@ a{color:var(--oe-link)}
 
     <div class="fig">
       <div class="fig__head"><span class="oe-figure-label">Grafico 8</span></div>
-      <div class="fig__embed" style="--h:600px">
-        <iframe src="https://flo.uri.sh/visualisation/27680248/embed" title="Valore (edonico) del tempo" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="beneficiTempo"></div>
     </div>
 
     <div class="text-2col">
@@ -633,9 +683,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 9</span></div>
-      <div class="fig__embed" style="--h:600px">
-        <iframe src="https://flo.uri.sh/visualisation/27679885/embed" title="Sfera personale" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="beneficiPersona"></div>
     </div>
 
     <p>I contenuti audiovisivi generano benefici diretti nella sfera personale, in particolare:</p>
@@ -656,9 +704,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 10</span></div>
-      <div class="fig__embed" style="--h:600px">
-        <iframe src="https://flo.uri.sh/visualisation/27679933/embed" title="Cineturismo e cultura" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="beneficiCineturismo"></div>
     </div>
 
     <p>Il comparto audiovisivo contribuisce alla promozione dei territori e alla valorizzazione culturale, stimolando curiosità e desiderio di visita, con effetti sui flussi turistici. Lo studio considera:</p>
@@ -680,9 +726,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 11</span></div>
-      <div class="fig__embed" style="--h:1000px">
-        <iframe src="https://flo.uri.sh/visualisation/27711732/embed" title="Quantificazione dei benefici sociali" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="composizione"></div>
     </div>
 
     <p>In sintesi, la lettura SROI consente di ricostruire e rendere comparabili benefici che il solo PIL non intercetta: il valore del tempo di fruizione, i miglioramenti nella sfera personale, la coesione sociale e gli effetti su territori e patrimonio culturale. Il risultato pari ad uno SROI di 4,5 indica che l'audiovisivo non genera soltanto produzione economica, ma anche un ritorno sociale misurabile, fornendo un'ulteriore base informativa per valutazioni di policy fondate su evidenze.</p>
@@ -697,9 +741,7 @@ a{color:var(--oe-link)}
 
     <div class="fig" style="margin-top:var(--oe-space-m)">
       <div class="fig__head"><span class="oe-figure-label">Grafico 12</span></div>
-      <div class="fig__embed" style="--h:1000px">
-        <iframe src="https://flo.uri.sh/visualisation/27527907/embed" title="SROI del settore audiovisivo" frameborder="0" scrolling="no" loading="lazy" sandbox="allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe>
-      </div>
+      <div data-oe-chart="sroi"></div>
     </div>
   </div>
 </section>
@@ -775,5 +817,7 @@ a{color:var(--oe-link)}
   </div>
 </footer>
 
+<script src="js/data.js"></script>
+<script src="js/charts.js" defer></script>
 </body>
 </html>

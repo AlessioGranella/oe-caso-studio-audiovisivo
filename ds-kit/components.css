@@ -85,6 +85,15 @@
 /* ---- KPI Card ---------------------------------------------------------- */
 .oe-kpi { background: var(--oe-white); padding: var(--oe-space-m); border: 1px solid var(--oe-gray-200); }   /* 24 */
 .oe-kpi--dark { background: var(--oe-bg-dark); border-color: rgba(255,255,255,0.14); }
+/* le card interattive (quelle con tooltip o focus) reagiscono al passaggio */
+.oe-kpi[tabindex] { transition: background var(--oe-dur-fast) var(--oe-ease),
+                                border-color var(--oe-dur-fast) var(--oe-ease); }
+.oe-kpi[tabindex]:hover, .oe-kpi[tabindex]:focus-visible {
+  background: var(--oe-accent-soft); border-color: var(--oe-accent);
+}
+.oe-kpi--dark[tabindex]:hover, .oe-kpi--dark[tabindex]:focus-visible {
+  background: var(--oe-accent-strong); border-color: var(--oe-on-dark-accent);
+}
 .oe-kpi__value {
   font-family: var(--oe-font-serif);   /* numero display → Hedvig */
   font-weight: 400;

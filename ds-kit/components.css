@@ -108,6 +108,16 @@
 .oe-kpi__icon { width: 36px; height: 36px; margin-bottom: var(--oe-space-s); color: var(--oe-accent); }
 .oe-kpi__icon img, .oe-kpi__icon svg { width: 100%; height: 100%; display: block; }
 .oe-kpi--dark .oe-kpi__icon { color: var(--oe-on-dark-accent); }
+/* variante "titolata": etichetta sopra, numero, unità — forma richiesta per le
+   landing di analisi (titolo → numero → valuta). */
+.oe-kpi--titled { display: flex; flex-direction: column; }
+.oe-kpi--titled .oe-kpi__label { order: -1; margin-top: 0; margin-bottom: var(--oe-space-xs); }
+.oe-kpi__unit {
+  font-family: var(--oe-font-mono); font-size: 13px; text-transform: uppercase;
+  letter-spacing: 0.02em; color: var(--oe-fg-soft); margin-top: var(--oe-space-xs);
+}
+.oe-kpi--dark .oe-kpi__unit { color: rgba(255,255,255,0.7); }
+
 .oe-kpi__note { font-family: var(--oe-font-sans); font-weight: 300; font-size: 13px; line-height: 1.45; color: var(--oe-fg-soft); margin: var(--oe-space-s) 0 0; }
 .oe-kpi--dark .oe-kpi__note { color: rgba(255,255,255,0.72); }
 

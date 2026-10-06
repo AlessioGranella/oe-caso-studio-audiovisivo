@@ -85,27 +85,27 @@
 /* ---- KPI Card ---------------------------------------------------------- */
 .oe-kpi { background: var(--oe-white); padding: var(--oe-space-m); border: 1px solid var(--oe-gray-200); }   /* 24 */
 .oe-kpi--dark { background: var(--oe-bg-dark); border-color: rgba(255,255,255,0.14); }
-/* le card interattive (quelle con tooltip o focus) reagiscono al passaggio */
-.oe-kpi[tabindex] {
-  cursor: pointer;
+/* tutte le card KPI reagiscono al passaggio del mouse e al focus */
+.oe-kpi {
+  cursor: default;
   transition: background var(--oe-dur-fast) var(--oe-ease),
               border-color var(--oe-dur-fast) var(--oe-ease),
               color var(--oe-dur-fast) var(--oe-ease);
 }
 /* hover/focus: la card va in negativo su Bluette 900 */
-.oe-kpi[tabindex]:hover, .oe-kpi[tabindex]:focus-visible {
+.oe-kpi:hover, .oe-kpi:focus-visible {
   background: var(--oe-bg-dark);
   border-color: var(--oe-bg-dark);
   color: var(--oe-white);
 }
-.oe-kpi[tabindex]:hover .oe-kpi__value,
-.oe-kpi[tabindex]:focus-visible .oe-kpi__value,
-.oe-kpi[tabindex]:hover .oe-kpi__label,
-.oe-kpi[tabindex]:focus-visible .oe-kpi__label,
-.oe-kpi[tabindex]:hover .oe-kpi__unit,
-.oe-kpi[tabindex]:focus-visible .oe-kpi__unit,
-.oe-kpi[tabindex]:hover .oe-kpi__note,
-.oe-kpi[tabindex]:focus-visible .oe-kpi__note { color: var(--oe-white); }
+.oe-kpi:hover .oe-kpi__value,
+.oe-kpi:focus-visible .oe-kpi__value,
+.oe-kpi:hover .oe-kpi__label,
+.oe-kpi:focus-visible .oe-kpi__label,
+.oe-kpi:hover .oe-kpi__unit,
+.oe-kpi:focus-visible .oe-kpi__unit,
+.oe-kpi:hover .oe-kpi__note,
+.oe-kpi:focus-visible .oe-kpi__note { color: var(--oe-white); }
 .oe-kpi__value {
   font-family: var(--oe-font-serif);   /* numero display → Hedvig */
   font-weight: 400;

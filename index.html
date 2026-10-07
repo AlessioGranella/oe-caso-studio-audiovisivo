@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Il settore Audiovisivo - l’economia della cultura e dell’identità italiana | OpenEconomics</title>
 <meta name="description" content="Analisi d'impatto socioeconomico del settore audiovisivo italiano. OpenEconomics per APA, dati 2023, modello SAM Italia a 63 settori.">
-<link rel="stylesheet" href="ds-kit/colors_and_type.css?v=202610072009">
-<link rel="stylesheet" href="ds-kit/components.css?v=202610072009">
+<link rel="stylesheet" href="ds-kit/colors_and_type.css?v=202610072020">
+<link rel="stylesheet" href="ds-kit/components.css?v=202610072020">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -43,18 +43,20 @@ h3{font-family:var(--oe-font-sans);font-weight:600;font-size:20px;line-height:1.
   margin:var(--oe-space-xl) 0 var(--oe-space-xs)}
 .fig + h3{margin-top:var(--oe-space-l)}
 h4{font-family:var(--oe-font-sans);font-weight:600;font-size:16px;margin:0 0 var(--oe-space-xxs)}
-p{margin:0 0 var(--oe-space-s);color:var(--oe-fg-soft);max-width:70ch;text-wrap:pretty}
-.lead{font-size:21px;color:var(--oe-fg-soft);max-width:62ch}
+/* il testo corrente occupa tutta la fascia: la misura di lettura si governa
+   con .text-2col dove il paragrafo è lungo, non con un cap sulla riga */
+p{margin:0 0 var(--oe-space-s);color:var(--oe-fg-soft);max-width:none;text-wrap:pretty}
+.lead{font-size:21px;color:var(--oe-fg-soft);max-width:none}
 .body{font-size:17px}
-.note{font-size:14px;color:var(--oe-fg-muted);max-width:78ch}
+.note{font-size:14px;color:var(--oe-fg-muted);max-width:none}
 .foot-note{font-size:13px;color:var(--oe-fg-muted);max-width:none;margin-top:var(--oe-space-s)}
 strong{font-weight:600;color:var(--oe-fg)}
 .band .oe-tag-chip--lime{margin-bottom:var(--oe-space-s)}
 ul.plain{list-style:none;margin:0 0 var(--oe-space-s);padding:0;display:grid;gap:var(--oe-space-s)}
-ul.plain li{position:relative;padding-left:26px;color:var(--oe-fg-soft);font-size:17px;max-width:70ch}
+ul.plain li{position:relative;padding-left:26px;color:var(--oe-fg-soft);font-size:17px;max-width:none}
 ul.plain li::before{content:"";position:absolute;left:0;top:.5em;width:12px;height:12px;background:var(--oe-accent)}
 ol.steps{margin:0 0 var(--oe-space-s);padding-left:22px;display:grid;gap:var(--oe-space-s)}
-ol.steps li{color:var(--oe-fg-soft);font-size:17px;max-width:70ch}
+ol.steps li{color:var(--oe-fg-soft);font-size:17px;max-width:none}
 a{color:var(--oe-link)}
 
 /* testo lungo su due colonne */
@@ -848,7 +850,7 @@ a{color:var(--oe-link)}
   </div>
 </footer>
 
-<script src="js/data.js?v=202610072009"></script>
-<script src="js/charts.js?v=202610072009" defer></script>
+<script src="js/data.js?v=202610072020"></script>
+<script src="js/charts.js?v=202610072020" defer></script>
 </body>
 </html>

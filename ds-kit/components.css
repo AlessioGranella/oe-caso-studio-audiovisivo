@@ -92,6 +92,26 @@
               border-color var(--oe-dur-fast) var(--oe-ease),
               color var(--oe-dur-fast) var(--oe-ease);
 }
+/* variante "flip": a riposo mostra il dato, al passaggio lo sostituisce con la
+   descrizione dentro la card stessa (niente tooltip fuori dal riquadro). */
+.oe-kpi--flip { position: relative; overflow: hidden; }
+.oe-kpi--flip > *:not(.oe-kpi__tip) {
+  transition: opacity var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-kpi__tip {
+  position: absolute; inset: 0; margin: 0;
+  display: flex; align-items: center;
+  padding: var(--oe-space-m);
+  font-family: var(--oe-font-sans); font-weight: 300;
+  font-size: 13px; line-height: 1.45; color: var(--oe-white);
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-kpi--flip:hover > *:not(.oe-kpi__tip),
+.oe-kpi--flip:focus-visible > *:not(.oe-kpi__tip) { opacity: 0; }
+.oe-kpi--flip:hover .oe-kpi__tip,
+.oe-kpi--flip:focus-visible .oe-kpi__tip { opacity: 1; visibility: visible; }
+
 /* hover/focus: la card va in negativo su Bluette 900 */
 .oe-kpi:hover, .oe-kpi:focus-visible {
   background: var(--oe-bg-dark);

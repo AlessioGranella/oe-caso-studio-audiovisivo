@@ -80,19 +80,16 @@ a{color:var(--oe-link)}
 }
 @media (max-width:480px){
   .kpis,.kpis--3,.kpis--6{grid-template-columns:1fr}
+  .kpis .oe-kpi--flip{min-height:150px}
 }
 
 /* le etichette su due righe non devono sfalsare i numeri */
 .kpis .oe-kpi--titled .oe-kpi__label{min-height:2.6em}
 
-/* mouse over sui numeri dell'executive summary */
-.oe-kpi[data-tip]{position:relative;cursor:help;outline:none}
-.oe-kpi[data-tip]::after{content:attr(data-tip);position:absolute;left:0;right:0;bottom:calc(100% + 6px);
-  z-index:20;background:var(--oe-bg-dark);color:#fff;font-size:12.5px;line-height:1.45;font-weight:300;
-  padding:10px 12px;opacity:0;visibility:hidden;transition:opacity .12s linear;
-  box-shadow:0 4px 12px rgba(39,0,101,.18)}
-.oe-kpi[data-tip]:hover::after,.oe-kpi[data-tip]:focus::after{opacity:1;visibility:visible}
-.oe-kpi[data-tip]:focus-visible{box-shadow:0 0 0 2px var(--oe-accent)}
+/* le card dell'executive summary ospitano la descrizione al loro interno:
+   altezza minima perché il testo ci stia senza far ballare la griglia */
+.kpis .oe-kpi--flip{min-height:196px}
+.kpis--wide .oe-kpi--flip{min-height:168px}
 
 /* ---- due colonne testo/elenco ---- */
 .cols{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--oe-space-2xl);align-items:start}
@@ -220,7 +217,6 @@ a{color:var(--oe-link)}
   .oe-map__svg{min-width:0;max-height:380px;margin-inline:auto}
   .fig__ctrl{gap:var(--oe-space-xs)}
   .oe-segment{flex-wrap:wrap}
-  .oe-kpi[data-tip]::after{left:0;right:auto;width:min(86vw,320px)}
 }
 
 </style>
@@ -259,47 +255,55 @@ a{color:var(--oe-link)}
   <div class="oe-container">
     <span class="oe-tag-chip oe-tag-chip--lime">Executive Summary</span>
     <div class="kpis">
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="La spesa annua del comparto audiovisivo, escluso il cinema: è lo shock di domanda che alimenta il modello.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Spesa complessiva</div>
         <div class="oe-kpi__value oe-num">8</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">La spesa annua del comparto audiovisivo, escluso il cinema: è lo shock di domanda che alimenta il modello.</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="L'incremento di domanda stimola il fatturato delle imprese nazionali lungo le catene del valore.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Valore della produzione</div>
         <div class="oe-kpi__value oe-num">23,5</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">L'incremento di domanda stimola il fatturato delle imprese nazionali lungo le catene del valore.</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="Nettando gli scambi intermedi si stima l'impatto sul PIL nazionale.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">PIL</div>
         <div class="oe-kpi__value oe-num">11,6</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">Nettando gli scambi intermedi si stima l'impatto sul PIL nazionale.</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="Per soddisfare l'incremento di produzione si impegnano specifiche unità lavorative, calcolate in equivalenti a tempo pieno (ETP).">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Occupazione</div>
         <div class="oe-kpi__value oe-num">153</div>
         <div class="oe-kpi__unit">Mila occupati</div>
+        <p class="oe-kpi__tip">Per soddisfare l'incremento di produzione si impegnano specifiche unità lavorative, calcolate in equivalenti a tempo pieno (ETP).</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="I redditi di famiglie e imprese sono la componente del reddito nazionale derivante dai redditi da lavoro e da capitale.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Redditi</div>
         <div class="oe-kpi__value oe-num">11,6</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">I redditi di famiglie e imprese sono la componente del reddito nazionale derivante dai redditi da lavoro e da capitale.</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="Il gettito fiscale rappresenta il contributo alle casse statali derivanti dalle tasse.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Gettito fiscale</div>
         <div class="oe-kpi__value oe-num">3,2</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">Il gettito fiscale rappresenta il contributo alle casse statali derivanti dalle tasse.</p>
       </div>
     </div>
     <div class="kpis kpis--wide">
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="Valore monetizzato degli impatti sociali e culturali, al netto della spesa sostenuta per generarli.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Benefici sociali</div>
         <div class="oe-kpi__value oe-num">25</div>
         <div class="oe-kpi__unit">Mld €</div>
+        <p class="oe-kpi__tip">Valore monetizzato degli impatti sociali e culturali, al netto della spesa sostenuta per generarli.</p>
       </div>
-      <div class="oe-kpi oe-kpi--titled" tabindex="0" data-tip="Rapporto fra benefici sociali netti e costi economici: ogni euro speso dal settore genera 4,5 euro di benefici sociali.">
+      <div class="oe-kpi oe-kpi--titled oe-kpi--flip" tabindex="0">
         <div class="oe-kpi__label">Ritorno sociale sugli investimenti</div>
         <div class="oe-kpi__value oe-num">4,5</div>
         <div class="oe-kpi__unit">SROI</div>
+        <p class="oe-kpi__tip">Rapporto fra benefici sociali netti e costi economici: ogni euro speso dal settore genera 4,5 euro di benefici sociali.</p>
       </div>
     </div>
   </div>

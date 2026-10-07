@@ -556,6 +556,22 @@ p, .oe-body {
   font-feature-settings: "tnum" 1;
 }
 
+/* Testo corrente su due colonne — REGOLA «fascia piena».
+   Il testo corrente non si cappa mai a una misura (niente max-width in ch): occupa
+   tutta la larghezza del contenitore. Quando un passaggio è lungo e la riga diventa
+   difficile da seguire, lo si divide in due colonne con questa utility, che riporta
+   la misura a una lunghezza leggibile senza lasciare mezza fascia vuota.
+   Sotto i 768px torna a colonna unica. */
+.oe-text-2col {
+  columns: 2;
+  column-gap: var(--oe-space-2xl);
+}
+.oe-text-2col > * { max-width: none; }
+.oe-text-2col > *:last-child { margin-bottom: 0; }
+@media (max-width: 767.98px) {
+  .oe-text-2col { columns: 1; }
+}
+
 /* Links */
 a, .oe-link {
   color: var(--oe-link);

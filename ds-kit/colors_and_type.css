@@ -39,7 +39,10 @@
 /* -----------------------------------------------------------------------
    Color tokens — straight from the Brand Manual
    ----------------------------------------------------------------------- */
-:root {
+/* Dichiarato anche su .theme-civiqa: i token semantici (var() sulla rampa) vanno
+   risolti sull'elemento che porta il tema, anche quando il tema sta su <body>.
+   Il blocco .theme-civiqa più sotto, venendo dopo, rimappa la rampa. */
+:root, .theme-civiqa {
   /* === Primary neutrals === */
   --oe-white: #FFFFFF;
   --oe-black: #000000;
@@ -259,6 +262,35 @@
 
   /* unico hex non derivato dalla rampa */
   --oe-bg-mid: var(--cv-blu-500);
+}
+
+/* -----------------------------------------------------------------------
+   Token dei GRAFICI (v0.6.0) — li legge il motore src/charts/oe-charts.js.
+   Derivano dalla rampa Bluette, quindi sotto .theme-civiqa diventano blu
+   Civiqa da soli. Dichiarati su :root E su .theme-civiqa perché il var()
+   va risolto sull'elemento che porta il tema, ovunque si trovi.
+   Regola: una sola tinta per grafico (rampa ordinale o sequenziale);
+   il magenta solo per una voce di costo, il grigio solo per «Altro».
+   ----------------------------------------------------------------------- */
+:root, .theme-civiqa {
+  /* rampa ordinale a 3 passi: diretto → indiretto → indotto, 1ª → 3ª serie */
+  --oe-chart-1: var(--oe-bluette-900);
+  --oe-chart-2: var(--oe-bluette-600);
+  --oe-chart-3: var(--oe-bluette-200);
+  /* scala sequenziale a 7 passi, dal chiaro allo scuro (mappe, treemap, ruote) */
+  --oe-chart-seq-1: var(--oe-bluette-050);
+  --oe-chart-seq-2: var(--oe-bluette-100);
+  --oe-chart-seq-3: var(--oe-bluette-200);
+  --oe-chart-seq-4: var(--oe-bluette-400);
+  --oe-chart-seq-5: var(--oe-bluette-600);
+  --oe-chart-seq-6: var(--oe-bluette-700);
+  --oe-chart-seq-7: var(--oe-bluette-900);
+  --oe-chart-accent: var(--oe-bluette-700);   /* serie singola */
+  --oe-chart-cost:   var(--oe-magenta-700);   /* solo voci di costo (waterfall) */
+  --oe-chart-other:  var(--oe-gray-400);      /* solo la voce residuale «Altro» */
+  --oe-chart-ink:    var(--oe-black);         /* etichette e valori */
+  --oe-chart-muted:  var(--oe-gray-600);      /* unità, fonti, assi */
+  --oe-chart-hair:   var(--oe-gray-200);      /* griglia e filetti */
 }
 
 /* -----------------------------------------------------------------------
@@ -561,7 +593,9 @@ p, .oe-body {
    tutta la larghezza del contenitore. Quando un passaggio è lungo e la riga diventa
    difficile da seguire, lo si divide in due colonne con questa utility, che riporta
    la misura a una lunghezza leggibile senza lasciare mezza fascia vuota.
-   Sotto i 768px torna a colonna unica. */
+   Sotto i 768px torna a colonna unica.
+   MAI SOTTO UN GRAFICO: il testo che segue un grafico va sempre a una colonna
+   (components.css lo riporta a una colonna da solo dopo .oe-fig). */
 .oe-text-2col {
   columns: 2;
   column-gap: var(--oe-space-2xl);

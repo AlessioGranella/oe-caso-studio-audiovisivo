@@ -74,13 +74,19 @@
 .oe-note p + p { margin-top: var(--oe-space-s); }
 .oe-note strong, .oe-note b { font-weight: 600; }
 
-/* lime piena: filetto Bluette (bianco sotto Civiqa, dove il pop è già blu) */
-.oe-note--lime { background: var(--oe-pop); color: var(--oe-pop-on); }
-.oe-note--lime::before { background: var(--oe-pop-rule); }
+/* REGOLA D'USO (v0.6.1): la nota IMPORTANTE è «evidente» (lime), quella non particolarmente
+   importante è «neutra» (grigia). Prima di impaginarla si chiede sempre quale delle due serve.
+   Su una fascia grigia la neutra va su bianco, per non sparire. */
 
-/* grigia con filetto lime */
-.oe-note--grey { background: var(--oe-bg-elev); color: var(--oe-fg); }
-.oe-note--grey::before { background: var(--oe-pop); }
+/* evidente — lime piena, filetto Bluette (bianco sotto Civiqa, dove il pop è già blu) */
+.oe-note--evidente, .oe-note--lime { background: var(--oe-pop); color: var(--oe-pop-on); }
+.oe-note--evidente::before, .oe-note--lime::before { background: var(--oe-pop-rule); }
+
+/* neutra — grigia con filetto lime */
+.oe-note--neutra, .oe-note--grey { background: var(--oe-bg-elev); color: var(--oe-fg); }
+.oe-note--neutra::before, .oe-note--grey::before { background: var(--oe-pop); }
+.oe-band--elev .oe-note--neutra, .oe-band--elev .oe-note--grey,
+.oe-band--nota .oe-note--neutra, .oe-band--nota .oe-note--grey { background: var(--oe-white); }
 
 /* ---- KPI Card ---------------------------------------------------------- */
 .oe-kpi { background: var(--oe-white); padding: var(--oe-space-m); border: 1px solid var(--oe-gray-200); }   /* 24 */
@@ -162,7 +168,75 @@
 .oe-kpi__note { font-family: var(--oe-font-sans); font-weight: 300; font-size: 13px; line-height: 1.45; color: var(--oe-fg-soft); margin: var(--oe-space-s) 0 0; }
 .oe-kpi--dark .oe-kpi__note { color: rgba(255,255,255,0.72); }
 
+/* Griglia delle card KPI (executive summary e sintesi di sezione).
+   Sei colonne, poi 3 · 2 · 1: le card si incolonnano sempre, non si schiacciano. */
+.oe-kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--oe-space-s); }
+.oe-kpis--3 { grid-template-columns: repeat(3, 1fr); }
+.oe-kpis--2 { grid-template-columns: repeat(2, 1fr); }
+/* le etichette su due righe non devono sfalsare i numeri */
+.oe-kpis .oe-kpi--titled .oe-kpi__label { min-height: 2.6em; }
+/* la card che ospita la spiegazione al suo interno ha bisogno di un'altezza minima,
+   altrimenti la griglia balla quando il testo compare */
+.oe-kpis .oe-kpi--flip { min-height: 196px; }
+@media (max-width: 1199.98px) { .oe-kpis { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 899.98px)  { .oe-kpis--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px)     { .oe-kpis { grid-template-columns: repeat(2, 1fr); }
+                                .oe-kpis--2 { grid-template-columns: 1fr; } }
+@media (max-width: 480px)     { .oe-kpis, .oe-kpis--3, .oe-kpis--2 { grid-template-columns: 1fr; }
+                                .oe-kpis .oe-kpi--flip { min-height: 150px; } }
+
+/* ---- Fasce di pagina ---------------------------------------------------
+   Le sezioni di una landing di analisi alternano bianco e grigio. Le uniche
+   eccezioni sono le fasce scure (hero, «consegnato») e la nota metodologica,
+   che ha sempre fondo bluette-050 e non entra nell'alternanza. */
+.oe-band { padding: var(--oe-space-3xl) 0; }
+.oe-band--tight { padding: var(--oe-space-2xl) 0; }
+.oe-band--elev { background: var(--oe-bg-elev); }
+.oe-band--nota { background: var(--oe-bg-tint); }
+.oe-band--dark { background: var(--oe-bg-dark); color: var(--oe-white); }
+.oe-band--dark h2, .oe-band--dark h3, .oe-band--dark p, .oe-band--dark li { color: var(--oe-white); }
+@media (max-width: 767.98px) { .oe-band { padding: var(--oe-space-2xl) 0; } }
+
 /* ---- Accordion --------------------------------------------------------- */
+/* «Scopri di più» (.oe-more) — la versione HTML statica dell'accordion, su <details>,
+   per i blocchi di testo densi delle landing di studio (sintesi, metodo, nota metodologica).
+   Riga di apertura a tutta larghezza con segno + / –, filetto sopra e sotto: da aperto si
+   vede sempre dove finisce il contenuto nascosto. Funziona senza JavaScript.
+     <details class="oe-more">
+       <summary>Scopri di più</summary>
+       <div class="oe-more__body"> … </div>
+     </details> */
+.oe-more {
+  margin: var(--oe-space-m) 0;
+  border-top: 1px solid var(--oe-gray-200);
+  border-bottom: 1px solid var(--oe-gray-200);
+}
+.oe-more > summary {
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--oe-space-s);
+  min-height: 48px;                                  /* area cliccabile */
+  padding: var(--oe-space-s) var(--oe-space-xxs);
+  cursor: pointer;
+  font-family: var(--oe-font-sans); font-weight: 500; font-size: 16px; line-height: 1.3;
+  color: var(--oe-accent);
+}
+.oe-more > summary::-webkit-details-marker { display: none; }
+.oe-more > summary::after {
+  content: "+"; flex: 0 0 auto;
+  font-family: var(--oe-font-mono); font-size: 24px; line-height: 1; font-weight: 400;
+}
+.oe-more[open] > summary::after { content: "–"; }
+.oe-more > summary:hover { color: var(--oe-accent-strong); }
+.oe-more > summary:focus-visible { outline: 2px solid var(--oe-accent); outline-offset: 2px; }
+.oe-more__body { padding: 0 var(--oe-space-xxs) var(--oe-space-m); }
+.oe-more__body > :last-child { margin-bottom: 0; }
+.oe-more[open] .oe-more__body { animation: oe-more-in .24s cubic-bezier(.2,.7,.2,1); }
+@keyframes oe-more-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.oe-band--dark .oe-more, .oe-hero-analisi .oe-more { border-color: rgba(255,255,255,.18); }
+.oe-band--dark .oe-more > summary { color: var(--oe-on-dark-accent); }
+@media (prefers-reduced-motion: reduce) { .oe-more[open] .oe-more__body { animation: none; } }
+@media print { .oe-more__body { display: block; } }
+
 .oe-accordion { border-top: 1px solid var(--oe-gray-200); }
 .oe-accordion__item { border-bottom: 1px solid var(--oe-gray-200); }
 .oe-accordion__head {
@@ -794,3 +868,120 @@
 .oe-metrics__sub { font-size: 12px; color: var(--oe-gray-600); margin-top: 1px; }
 .oe-metrics__value { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 44px; text-align: right; }
 .oe-metrics__link { padding: var(--oe-space-3) var(--oe-space-s); border-top: 1px solid var(--oe-gray-200); font-size: 13px; color: var(--oe-accent); font-weight: 500; }
+
+/* =======================================================================
+   GRAFICI (v0.6.0) — stili del motore src/charts/oe-charts.js
+   Figura, controlli di vista, stati interattivi, mappa con classifica,
+   tooltip. I colori dei grafici arrivano dai token --oe-chart-*.
+   ======================================================================= */
+
+/* Riquadro della figura. Regola fissa: 32px sopra, 40px sotto (24/32 su mobile),
+   il testo che segue non tocca mai il bordo. Fondo opposto alla fascia:
+   grigio su fascia bianca, bianco su fascia grigia o nota metodologica.
+   .fig / .fig__* restano come alias per le pagine fatte prima della v0.6.0. */
+.oe-fig, .fig {
+  margin: var(--oe-space-l) 0 var(--oe-space-xl);
+  border: 1px solid var(--oe-gray-200);
+  padding: var(--oe-space-m);
+  background: var(--oe-bg-elev);
+}
+.oe-band--elev .oe-fig, .oe-band--nota .oe-fig,
+.oe-band--elev .fig, .oe-band--nota .fig { background: var(--oe-white); }
+.oe-fig + h3, .fig + h3 { margin-top: var(--oe-space-l); }
+.oe-fig__head, .fig__head { margin-bottom: var(--oe-space-s); }
+.oe-fig__title, .fig__title {
+  font-family: var(--oe-font-sans); font-weight: 600; font-size: 17px; line-height: 1.35;
+  margin: var(--oe-space-xxs) 0 0; color: var(--oe-fg); max-width: none;
+}
+
+/* Regola fissa: il testo sotto un grafico non va MAI su due colonne. Il commento a un
+   grafico si legge di seguito, a fascia piena; .oe-text-2col è solo per il testo lungo
+   che non segue un grafico. Rete di sicurezza: se compare dopo una figura nella stessa
+   fascia, torna a una colonna da solo. */
+.oe-fig ~ .oe-text-2col, .fig ~ .oe-text-2col, .oe-fig ~ .text-2col, .fig ~ .text-2col,
+.oe-fig ~ * .oe-text-2col, .fig ~ * .oe-text-2col { columns: 1; }
+
+/* controllo segmentato che cambia vista */
+.oe-fig__ctrl {
+  display: flex; align-items: center; gap: var(--oe-space-s); flex-wrap: wrap;
+  margin: 0 0 var(--oe-space-s);
+}
+.oe-fig__ctrl-label {
+  font-family: var(--oe-font-mono); font-size: 12px; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--oe-fg-muted);
+}
+.oe-segment__btn:focus-visible { outline: 2px solid var(--oe-accent); outline-offset: 2px; }
+
+/* SVG e stati */
+.oe-chart { display: block; width: 100%; overflow: hidden; font-family: var(--oe-font-sans); }
+.oe-chart text { font-family: var(--oe-font-sans); }
+.oe-chart .oe-bar { transition: width .38s cubic-bezier(.2,.7,.2,1), opacity .14s linear; }
+.oe-chart .oe-row, .oe-chart .oe-region { cursor: default; outline: none; }
+.oe-chart .oe-row:hover .oe-bar, .oe-chart .oe-row:focus-visible .oe-bar { opacity: .86; }
+.oe-chart .oe-row:focus-visible .oe-lab, .oe-chart .oe-row:focus-visible .oe-val { font-weight: 600; }
+.oe-chart .oe-lg { cursor: pointer; }
+.oe-chart[data-focus] .oe-bar { opacity: .22; }
+.oe-chart[data-focus="0"] [data-series="0"].oe-bar,
+.oe-chart[data-focus="1"] [data-series="1"].oe-bar,
+.oe-chart[data-focus="2"] [data-series="2"].oe-bar { opacity: 1; }
+/* numeri: Atkinson tabulare; Hedvig solo per le cifre display (≥ 28px) */
+.oe-chart .oe-val { font-family: var(--oe-font-sans); font-weight: 500; font-variant-numeric: tabular-nums; }
+.oe-chart .oe-val--display { font-family: var(--oe-font-serif); font-weight: 400; letter-spacing: -.01em; }
+.oe-chart .oe-src { font-family: var(--oe-font-mono); letter-spacing: .04em; }
+/* sankey: al passaggio su un nodo gli altri flussi si attenuano */
+.oe-sankey .oe-flow .oe-bar { transition: stroke-opacity .14s linear; }
+.oe-sankey .oe-flow:hover .oe-bar { stroke-opacity: .6; opacity: 1; }
+.oe-sankey .oe-flow.is-dim .oe-bar { stroke-opacity: .06; }
+[data-oe-chart].is-in { animation: oe-chart-in .4s cubic-bezier(.2,.7,.2,1); }
+@keyframes oe-chart-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* mappa + classifica sincronizzata */
+.oe-map { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: var(--oe-space-l); align-items: start; }
+.oe-map__svg { max-height: 520px; }
+.oe-region { transition: fill .32s cubic-bezier(.2,.7,.2,1); }
+.oe-region.is-on { stroke: var(--oe-accent); stroke-width: 1.6; }
+.oe-rank { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: var(--oe-space-l); font-size: 13px; }
+.oe-rank__i { display: flex; align-items: center; gap: var(--oe-space-xs); padding: 3px var(--oe-space-xxs); break-inside: avoid; cursor: default; }
+.oe-rank__i i { width: 10px; height: 10px; flex: 0 0 auto; }
+.oe-rank__i span { flex: 1 1 auto; color: var(--oe-fg-soft); }
+.oe-rank__i b { font-family: var(--oe-font-sans); font-weight: 500; font-size: 13px; font-variant-numeric: tabular-nums; }
+.oe-rank__i.is-on { background: var(--oe-accent-soft); }
+.oe-chart__foot {
+  display: flex; flex-wrap: wrap; gap: var(--oe-space-s); justify-content: space-between;
+  margin: var(--oe-space-s) 0 0; font-size: 12px; color: var(--oe-fg-muted);
+}
+.oe-chart__foot .oe-src { font-family: var(--oe-font-mono); letter-spacing: .04em; }
+
+/* tooltip: fondo scuro del tema, mai fuori palette */
+.oe-tip {
+  position: fixed; top: 0; left: 0; z-index: 60; pointer-events: none; opacity: 0;
+  transition: opacity .12s linear; background: var(--oe-bg-dark); color: var(--oe-white);
+  padding: 10px 12px; min-width: 180px; max-width: 280px; box-shadow: 0 4px 12px rgba(39,0,101,.18);
+}
+.oe-tip.is-on { opacity: 1; }
+.oe-tip__t { font-family: var(--oe-font-sans); font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+.oe-tip__s {
+  font-family: var(--oe-font-mono); font-size: 12px; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--oe-on-dark-accent); margin-bottom: 6px;
+}
+.oe-tip__r { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,.82); }
+.oe-tip__r b { font-family: var(--oe-font-sans); font-weight: 600; color: var(--oe-white); font-variant-numeric: tabular-nums; }
+.oe-tip__k { display: flex; align-items: center; gap: 6px; }
+.oe-tip__k i { width: 9px; height: 9px; display: inline-block; box-shadow: inset 0 0 0 1px rgba(255,255,255,.55); }
+
+@media (max-width: 767.98px) {
+  .oe-fig, .fig { padding: var(--oe-space-s); margin: var(--oe-space-m) 0 var(--oe-space-l); }
+  /* i grafici non si rimpiccioliscono fino all'illeggibile: larghezza minima e scorrimento */
+  [data-oe-chart] { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .oe-chart:not(.oe-map__svg) { min-width: 620px; }
+  .oe-map { grid-template-columns: 1fr; gap: var(--oe-space-m); }
+  .oe-map__svg { min-width: 0; max-height: 380px; margin-inline: auto; }
+  .oe-fig__ctrl { gap: var(--oe-space-xs); }
+  .oe-segment { flex-wrap: wrap; }
+}
+@media (max-width: 560px) { .oe-rank { columns: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .oe-chart .oe-bar, .oe-region { transition: none; }
+  [data-oe-chart].is-in { animation: none; }
+}
+@media print { .oe-fig__ctrl { display: none; } }

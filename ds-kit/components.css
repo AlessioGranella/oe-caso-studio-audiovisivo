@@ -295,6 +295,10 @@
   gap: var(--oe-space-xl);
   padding-bottom: var(--oe-space-xl);
 }
+.oe-footer--standard .oe-footer__top {
+  grid-template-columns: minmax(0, 1fr) auto;     /* brand · sede */
+  align-items: end;
+}
 .oe-footer--analisi .oe-footer__top {
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: var(--oe-space-3xl);
@@ -344,6 +348,28 @@
   white-space: nowrap;
 }
 
+/* Sede: etichetta mono accento + indirizzo e telefono */
+.oe-footer__hq {
+  display: flex;
+  flex-direction: column;
+  gap: var(--oe-space-xxs);
+  font-style: normal;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--oe-white);
+}
+.oe-footer--analisi .oe-footer__hq { margin-top: var(--oe-space-l); }
+.oe-footer__hq-label {
+  font-family: var(--oe-font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--oe-on-dark-accent);
+  margin-bottom: var(--oe-space-xxs);
+}
+.oe-footer__hq .oe-footer__link { font-size: 15px; align-self: flex-start; }
+
 .oe-footer__rule {
   border: 0;
   border-top: var(--oe-border-on-dark);         /* rgba(255,255,255,.18) */
@@ -364,8 +390,25 @@
   font-size: 13px;
   color: rgba(255, 255, 255, 0.82);
 }
+.oe-footer__site {
+  font-size: 14px;
+  color: var(--oe-white);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 3px;
+  transition: color var(--oe-dur-fast) var(--oe-ease),
+              text-decoration-color var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-footer__site:hover,
+.oe-footer__site:focus-visible {
+  color: var(--oe-on-dark-accent);
+  text-decoration-color: currentColor;
+}
 .oe-footer__links {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--oe-space-l);
 }
 .oe-footer__link {
@@ -379,6 +422,7 @@
 
 @media (max-width: 767.98px) {
   .oe-footer { padding: var(--oe-space-xl) var(--oe-space-m) var(--oe-space-m); }
+  .oe-footer--standard .oe-footer__top,
   .oe-footer--analisi .oe-footer__top { grid-template-columns: 1fr; gap: var(--oe-space-l); }
   .oe-footer__tagline,
   .oe-footer--analisi .oe-footer__tagline { font-size: 22px; max-width: 32ch; }

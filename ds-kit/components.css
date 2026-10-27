@@ -305,6 +305,11 @@
   align-items: start;
 }
 
+/* Logo OpenEconomics = sempre un link al sito (barra, footer, ovunque compaia).
+   Il link avvolge l'svg senza cambiarne la misura. */
+.oe-logo-link { display: inline-block; flex: 0 0 auto; line-height: 0; color: inherit; }
+.oe-logo-link:focus-visible { outline: 2px solid currentColor; outline-offset: var(--oe-space-xxs); }
+
 .oe-footer__logo {
   display: block;
   width: auto;

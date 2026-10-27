@@ -728,8 +728,9 @@
    Testata di ogni landing di studio o analisi, con la stessa impostazione della
    barra della home Studies: un pannello sospeso, fisso in alto sopra la hero,
    largo quanto il contenitore (1440 + 32).
-   1. .oe-nav-analisi — riquadro bianco: logo OpenEconomics (link al sito) ed
-      etichetta «Studies» a sinistra, link «Torna agli studi» a destra.
+   1. .oe-nav-analisi — riquadro bianco: a sinistra il logo OpenEconomics (link al
+      sito) e le label «Metodologia» e «Studi pubblicati» (__links); a destra cerca
+      e «Accedi» (__icons). Sotto i 900px le label si nascondono, come in Studies.
    2. .oe-nav-sezioni — riquadro grigio attaccato sotto: una label per ogni
       sezione che ha il chip lime, allineate al logo. Ogni label è un'ancora alla
       sezione e ripete il testo del suo chip. Le voci si vedono sempre tutte: se
@@ -750,7 +751,7 @@
   transition: border-color var(--oe-dur-base) var(--oe-ease), box-shadow var(--oe-dur-base) var(--oe-ease);
 }
 .oe-nav-analisi__inner {
-  display: flex; align-items: center; justify-content: space-between; gap: var(--oe-space-l);
+  display: flex; align-items: center; gap: var(--oe-space-l);
   min-height: 60px; padding: var(--oe-space-3) var(--oe-space-m); background: var(--oe-white);
 }
 .oe-nav-sezioni__inner { background: var(--oe-bg-elev); border-top-color: var(--oe-gray-200); padding-inline: var(--oe-space-m); }
@@ -762,19 +763,26 @@
 }
 .oe-nav-analisi.is-scrolled .oe-nav-analisi__inner { border-bottom-color: transparent; }
 
-.oe-nav-analisi__brand { display: flex; align-items: center; gap: var(--oe-space-s); }
+.oe-nav-analisi__brand { display: flex; align-items: center; }
 .oe-nav-analisi__logo { height: 20px; width: auto; color: var(--oe-black); display: block; flex: 0 0 auto; }
-.oe-nav-analisi__badge {
-  font-family: var(--oe-font-mono); font-size: 13px; font-weight: 500; line-height: 20px;
-  text-transform: uppercase; letter-spacing: -0.01em; color: var(--oe-accent);
-  padding-left: var(--oe-space-s); border-left: 1px solid var(--oe-gray-300);
-}
+.oe-nav-analisi__links { display: flex; gap: var(--oe-space-l); list-style: none; margin: 0; padding: 0; }
 .oe-nav-analisi__link {
-  font-family: var(--oe-font-sans); font-size: 15px; font-weight: 500; white-space: nowrap;
-  color: var(--oe-fg); text-decoration: none; padding-block: var(--oe-space-xs);
+  font-family: var(--oe-font-sans); font-size: 15px; white-space: nowrap;
+  color: var(--oe-gray-900); text-decoration: none; padding-block: var(--oe-space-xxs);
   transition: color var(--oe-dur-fast) var(--oe-ease);
 }
-.oe-nav-analisi__link:hover { color: var(--oe-accent); }
+.oe-nav-analisi__link:hover, .oe-nav-analisi__link[aria-current] { color: var(--oe-accent); }
+.oe-nav-analisi__icons { display: flex; align-items: center; gap: var(--oe-space-xs); margin-left: auto; }
+.oe-nav-analisi__icon {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--oe-space-xs);
+  min-width: 40px; height: 40px; padding: 0 var(--oe-space-xs); text-decoration: none;
+  font-family: var(--oe-font-sans); font-size: 15px; font-weight: 500; color: var(--oe-gray-900);
+  transition: color var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-nav-analisi__icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.oe-nav-analisi__icon:hover { color: var(--oe-accent); }
+.oe-nav-analisi__link:focus-visible, .oe-nav-analisi__icon:focus-visible { outline: 2px solid var(--oe-accent); outline-offset: 2px; }
+@media (max-width: 899.98px) { .oe-nav-analisi__links { display: none; } }
 
 .oe-nav-sezioni__list {
   display: flex; flex-wrap: wrap; column-gap: var(--oe-space-l); row-gap: 0;
@@ -818,9 +826,8 @@
 @media (max-width: 767.98px) {
   :root { --oe-nav-top: var(--oe-space-xs); }
   .oe-nav-analisi__inner { min-height: 52px; padding: var(--oe-space-xs) var(--oe-space-s); gap: var(--oe-space-s); }
-  .oe-nav-analisi__brand { gap: var(--oe-space-3); }
   .oe-nav-analisi__logo { height: 16px; }
-  .oe-nav-analisi__badge { padding-left: var(--oe-space-3); }
+  .oe-nav-analisi__icon span { display: none; }
   .oe-nav-sezioni__inner { padding-inline: var(--oe-space-s); }
   .oe-nav-sezioni__toggle { display: flex; }
   .oe-nav-sezioni__list {
@@ -832,8 +839,6 @@
   .oe-nav-sezioni__link { padding-block: var(--oe-space-s); border-bottom: 0; }
   .oe-nav-sezioni__link.is-active { border-bottom: 0; }
 }
-/* telefoni stretti: l'etichetta «Studies» cede il posto a «Torna agli studi» */
-@media (max-width: 399.98px) { .oe-nav-analisi__badge { display: none; } }
 /* il pannello è sospeso sopra la hero: la hero gli lascia spazio sopra il contenuto,
    le sezioni raggiunte dal menu si fermano sotto. --oe-nav-sezioni-h = fondo del
    pannello chiuso + 16px, lo scrive lo script; 160px è il valore di riserva */

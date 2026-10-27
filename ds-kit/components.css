@@ -736,13 +736,10 @@
       Resta agganciato in alto mentre si scorre; la voce della sezione in vista
       prende .is-active (script oe-nav-sezioni.js).
    Le fasce sono full-bleed, il contenuto sta in un .oe-container interno. */
-/* stessa larghezza della barra della home Studies: riquadro grande quanto il
-   contenitore (1440 + 32), con 24px di rientro interno (16 sotto i 768px) */
 .oe-nav-analisi { background: var(--oe-bg); border-bottom: 1px solid var(--oe-gray-200); }
 .oe-nav-analisi__inner {
   display: flex; align-items: center; justify-content: space-between;
-  gap: var(--oe-space-m); min-height: 64px;
-  padding: var(--oe-space-3) var(--oe-space-m); border: 1px solid transparent;
+  gap: var(--oe-space-m); min-height: 64px; padding-block: var(--oe-space-s);
 }
 .oe-nav-analisi__logo { height: 20px; width: auto; color: var(--oe-black); display: block; flex: 0 0 auto; }
 .oe-nav-analisi__link {
@@ -796,7 +793,6 @@
 .oe-nav-sezioni.is-open .oe-nav-sezioni__burger::after { transform: translateY(-6px) rotate(-45deg); }
 
 @media (max-width: 767.98px) {
-  .oe-nav-analisi__inner { padding: var(--oe-space-3) var(--oe-space-s); gap: var(--oe-space-s); }
   .oe-nav-sezioni__toggle { display: flex; }
   .oe-nav-sezioni__list {
     display: none; flex-direction: column; flex-wrap: nowrap; padding: 0 0 var(--oe-space-s);

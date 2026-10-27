@@ -719,6 +719,58 @@
 .oe-hero__lead { font-size: 20px; font-weight: 300; line-height: 1.5; color: var(--oe-fg-soft); margin: 0; max-width: 56ch; }
 .oe-hero__actions { display: flex; gap: var(--oe-space-s); flex-wrap: wrap; margin-top: var(--oe-space-xs); }
 
+/* ---- Navigazione Analisi (UI Block) -----------------------------------
+   Testata di ogni landing di studio o analisi, due righe prima della hero.
+   1. .oe-nav-analisi — barra bianca: logo OpenEconomics a sinistra, link
+      «Torna agli studi» (sito Studies) a destra.
+   2. .oe-nav-sezioni — menu grigio: una label per ogni sezione che ha il chip
+      lime, allineate a sinistra. Ogni label è un'ancora alla sezione e ripete
+      il testo del suo chip. Resta agganciato in alto mentre si scorre; la voce
+      della sezione in vista prende .is-active (script oe-nav-sezioni.js).
+   Le fasce sono full-bleed, il contenuto sta in un .oe-container interno. */
+.oe-nav-analisi { background: var(--oe-bg); border-bottom: 1px solid var(--oe-gray-200); }
+.oe-nav-analisi__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--oe-space-m); min-height: 64px; padding-block: var(--oe-space-s);
+}
+.oe-nav-analisi__logo { height: 20px; width: auto; color: var(--oe-black); display: block; flex: 0 0 auto; }
+.oe-nav-analisi__link {
+  font-family: var(--oe-font-sans); font-size: 15px; font-weight: 500; white-space: nowrap;
+  color: var(--oe-fg); text-decoration: none; padding-block: var(--oe-space-xs);
+  transition: color var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-nav-analisi__link:hover { color: var(--oe-accent); }
+
+.oe-nav-sezioni {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--oe-bg-elev); border-bottom: 1px solid var(--oe-gray-200);
+}
+/* troppe voci per la riga: il menu scorre in orizzontale, la pagina no */
+.oe-nav-sezioni__list {
+  display: flex; gap: var(--oe-space-l); margin: 0; padding: 0; list-style: none;
+  overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none;
+}
+.oe-nav-sezioni__list::-webkit-scrollbar { display: none; }
+/* voci nascoste oltre il bordo: sfumatura su quel lato (classi messe dallo script) */
+.oe-nav-sezioni__list.is-more-end { mask-image: linear-gradient(to right, black calc(100% - 48px), transparent); }
+.oe-nav-sezioni__list.is-more-start { mask-image: linear-gradient(to right, transparent, black 48px); }
+.oe-nav-sezioni__list.is-more-start.is-more-end {
+  mask-image: linear-gradient(to right, transparent, black 48px, black calc(100% - 48px), transparent);
+}
+.oe-nav-sezioni__link {
+  display: block; white-space: nowrap; text-decoration: none;
+  font-family: var(--oe-font-sans); font-size: 15px; color: var(--oe-fg-soft);
+  padding-block: var(--oe-space-s); border-bottom: 2px solid transparent;
+  transition: color var(--oe-dur-fast) var(--oe-ease), border-color var(--oe-dur-fast) var(--oe-ease);
+}
+.oe-nav-sezioni__link:hover { color: var(--oe-accent); }
+.oe-nav-sezioni__link.is-active { color: var(--oe-accent); border-bottom-color: var(--oe-accent); font-weight: 500; }
+.oe-nav-sezioni__link:focus-visible { outline: 2px solid var(--oe-accent); outline-offset: -2px; }
+/* le sezioni raggiunte dal menu non finiscono sotto il menu agganciato:
+   l'altezza reale la scrive lo script, 56px è il valore di riserva */
+html:has(.oe-nav-sezioni) section[id] { scroll-margin-top: var(--oe-nav-sezioni-h, 56px); }
+@media print { .oe-nav-analisi, .oe-nav-sezioni { display: none; } }
+
 /* ---- Hero Analisi (UI Block) ------------------------------------------
    Hero delle landing di studi e analisi. La fascia è full-bleed: sfondo,
    immagine e velo stanno qui, il contenuto va in un .oe-container interno.

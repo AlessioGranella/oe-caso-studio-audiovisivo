@@ -725,23 +725,50 @@
 .oe-hero__actions { display: flex; gap: var(--oe-space-s); flex-wrap: wrap; margin-top: var(--oe-space-xs); }
 
 /* ---- Navigazione Analisi (UI Block) -----------------------------------
-   Testata di ogni landing di studio o analisi, due righe prima della hero.
-   1. .oe-nav-analisi — barra bianca: logo OpenEconomics a sinistra, link
-      «Torna agli studi» (sito Studies) a destra.
-   2. .oe-nav-sezioni — menu grigio: una label per ogni sezione che ha il chip
-      lime, allineate a sinistra. Ogni label è un'ancora alla sezione e ripete
-      il testo del suo chip. Le voci si vedono sempre tutte: se non stanno in una
-      riga vanno a capo. Sotto i 768px il menu si chiude dietro il pulsante
-      hamburger (__toggle), che mostra la sezione in vista e apre la lista.
-      Resta agganciato in alto mentre si scorre; la voce della sezione in vista
-      prende .is-active (script oe-nav-sezioni.js).
-   Le fasce sono full-bleed, il contenuto sta in un .oe-container interno. */
-.oe-nav-analisi { background: var(--oe-bg); border-bottom: 1px solid var(--oe-gray-200); }
-.oe-nav-analisi__inner {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--oe-space-m); min-height: 64px; padding-block: var(--oe-space-s);
+   Testata di ogni landing di studio o analisi, con la stessa impostazione della
+   barra della home Studies: un pannello sospeso, fisso in alto sopra la hero,
+   largo quanto il contenitore (1440 + 32).
+   1. .oe-nav-analisi — riquadro bianco: logo OpenEconomics (link al sito) ed
+      etichetta «Studies» a sinistra, link «Torna agli studi» a destra.
+   2. .oe-nav-sezioni — riquadro grigio attaccato sotto: una label per ogni
+      sezione che ha il chip lime, allineate al logo. Ogni label è un'ancora alla
+      sezione e ripete il testo del suo chip. Le voci si vedono sempre tutte: se
+      non stanno in una riga vanno a capo. Sotto i 768px il riquadro si chiude
+      dietro il pulsante hamburger (__toggle), che mostra la sezione in vista.
+   Lo script oe-nav-sezioni.js accende la voce della sezione in vista
+   (.is-active), aggiunge filetto e ombra dopo i primi 24px di scorrimento
+   (.is-scrolled, come in Studies) e misura il pannello: la hero gli lascia
+   spazio e le ancore si fermano sotto. */
+:root { --oe-nav-top: var(--oe-space-s); }
+.oe-nav-analisi, .oe-nav-sezioni {
+  position: fixed; left: 0; right: 0; z-index: 50; pointer-events: none;
 }
+.oe-nav-analisi { top: var(--oe-nav-top); }
+.oe-nav-sezioni { top: calc(var(--oe-nav-top) + var(--oe-nav-analisi-h, 62px)); }
+.oe-nav-analisi__inner, .oe-nav-sezioni__inner {
+  pointer-events: auto; border: 1px solid transparent;
+  transition: border-color var(--oe-dur-base) var(--oe-ease), box-shadow var(--oe-dur-base) var(--oe-ease);
+}
+.oe-nav-analisi__inner {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--oe-space-l);
+  min-height: 60px; padding: var(--oe-space-3) var(--oe-space-m); background: var(--oe-white);
+}
+.oe-nav-sezioni__inner { background: var(--oe-bg-elev); border-top-color: var(--oe-gray-200); padding-inline: var(--oe-space-m); }
+/* dopo i primi passi di scorrimento il pannello prende filetto e ombra leggera (hairline lift del DS) */
+.oe-nav-analisi.is-scrolled .oe-nav-analisi__inner,
+.oe-nav-sezioni.is-scrolled .oe-nav-sezioni__inner {
+  border-color: var(--oe-gray-200);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.oe-nav-analisi.is-scrolled .oe-nav-analisi__inner { border-bottom-color: transparent; }
+
+.oe-nav-analisi__brand { display: flex; align-items: center; gap: var(--oe-space-s); }
 .oe-nav-analisi__logo { height: 20px; width: auto; color: var(--oe-black); display: block; flex: 0 0 auto; }
+.oe-nav-analisi__badge {
+  font-family: var(--oe-font-mono); font-size: 13px; font-weight: 500; line-height: 20px;
+  text-transform: uppercase; letter-spacing: -0.01em; color: var(--oe-accent);
+  padding-left: var(--oe-space-s); border-left: 1px solid var(--oe-gray-300);
+}
 .oe-nav-analisi__link {
   font-family: var(--oe-font-sans); font-size: 15px; font-weight: 500; white-space: nowrap;
   color: var(--oe-fg); text-decoration: none; padding-block: var(--oe-space-xs);
@@ -749,10 +776,6 @@
 }
 .oe-nav-analisi__link:hover { color: var(--oe-accent); }
 
-.oe-nav-sezioni {
-  position: sticky; top: 0; z-index: 50;
-  background: var(--oe-bg-elev); border-bottom: 1px solid var(--oe-gray-200);
-}
 .oe-nav-sezioni__list {
   display: flex; flex-wrap: wrap; column-gap: var(--oe-space-l); row-gap: 0;
   margin: 0; padding: var(--oe-space-xs) 0; list-style: none;
@@ -793,19 +816,31 @@
 .oe-nav-sezioni.is-open .oe-nav-sezioni__burger::after { transform: translateY(-6px) rotate(-45deg); }
 
 @media (max-width: 767.98px) {
+  :root { --oe-nav-top: var(--oe-space-xs); }
+  .oe-nav-analisi__inner { min-height: 52px; padding: var(--oe-space-xs) var(--oe-space-s); gap: var(--oe-space-s); }
+  .oe-nav-analisi__brand { gap: var(--oe-space-3); }
+  .oe-nav-analisi__logo { height: 16px; }
+  .oe-nav-analisi__badge { padding-left: var(--oe-space-3); }
+  .oe-nav-sezioni__inner { padding-inline: var(--oe-space-s); }
   .oe-nav-sezioni__toggle { display: flex; }
   .oe-nav-sezioni__list {
     display: none; flex-direction: column; flex-wrap: nowrap; padding: 0 0 var(--oe-space-s);
     border-top: 1px solid var(--oe-gray-200);
-    max-height: calc(100svh - 49px); overflow-y: auto; overscroll-behavior: contain;
+    max-height: calc(100svh - var(--oe-nav-sezioni-h, 140px)); overflow-y: auto; overscroll-behavior: contain;
   }
   .oe-nav-sezioni.is-open .oe-nav-sezioni__list { display: flex; }
   .oe-nav-sezioni__link { padding-block: var(--oe-space-s); border-bottom: 0; }
   .oe-nav-sezioni__link.is-active { border-bottom: 0; }
 }
-/* le sezioni raggiunte dal menu non finiscono sotto il menu agganciato:
-   l'altezza reale (a menu chiuso) la scrive lo script, 56px è il valore di riserva */
-html:has(.oe-nav-sezioni) section[id] { scroll-margin-top: var(--oe-nav-sezioni-h, 56px); }
+/* telefoni stretti: l'etichetta «Studies» cede il posto a «Torna agli studi» */
+@media (max-width: 399.98px) { .oe-nav-analisi__badge { display: none; } }
+/* il pannello è sospeso sopra la hero: la hero gli lascia spazio sopra il contenuto,
+   le sezioni raggiunte dal menu si fermano sotto. --oe-nav-sezioni-h = fondo del
+   pannello chiuso + 16px, lo scrive lo script; 160px è il valore di riserva */
+.oe-nav-sezioni ~ .oe-hero-analisi {
+  padding-top: max(var(--oe-space-11), calc(var(--oe-nav-sezioni-h, 160px) + var(--oe-space-l)));
+}
+html:has(.oe-nav-sezioni) section[id] { scroll-margin-top: var(--oe-nav-sezioni-h, 160px); }
 @media print { .oe-nav-analisi, .oe-nav-sezioni { display: none; } }
 
 /* ---- Hero Analisi (UI Block) ------------------------------------------

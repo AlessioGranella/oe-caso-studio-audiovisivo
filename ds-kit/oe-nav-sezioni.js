@@ -2,17 +2,17 @@
    UI Block «Navigazione Analisi». Senza dipendenze, va anche da file://.
 
    - evidenzia la voce della sezione in vista (.is-active + aria-current);
-   - porta la voce attiva dentro l'area visibile del menu quando scorre in orizzontale
-     e segnala con .is-more-start / .is-more-end le voci nascoste oltre il bordo;
-   - scrive l'altezza del menu in --oe-nav-sezioni-h, così le sezioni raggiunte
+   - su mobile apre e chiude la lista dal pulsante hamburger (.is-open), la chiude
+     dopo la scelta di una voce o con Esc, e scrive nel pulsante la sezione in vista;
+   - scrive l'altezza del menu chiuso in --oe-nav-sezioni-h, così le sezioni raggiunte
      dall'ancora non finiscono sotto il menu agganciato.
 
    Uso: <script src="ds-kit/oe-nav-sezioni.js" defer></script> */
 (function () {
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   function init(nav) {
-    var list = nav.querySelector('.oe-nav-sezioni__list');
+    var toggle = nav.querySelector('.oe-nav-sezioni__toggle');
+    var label = nav.querySelector('.oe-nav-sezioni__current');
+    var fallback = label ? label.textContent : '';
     var items = [].slice.call(nav.querySelectorAll('.oe-nav-sezioni__link[href^="#"]'))
       .map(function (a) { return { a: a, el: document.getElementById(decodeURIComponent(a.hash.slice(1))) }; })
       .filter(function (it) { return it.el; });
@@ -22,28 +22,20 @@
     var queued = false;
 
     function setHeight() {
+      if (nav.classList.contains('is-open')) return;
       document.documentElement.style.setProperty('--oe-nav-sezioni-h', nav.offsetHeight + 'px');
     }
 
-    function edges() {
-      if (!list) return;
-      var max = list.scrollWidth - list.clientWidth;
-      list.classList.toggle('is-more-start', list.scrollLeft > 1);
-      list.classList.toggle('is-more-end', list.scrollLeft < max - 1);
-    }
-
-    function reveal(a) {
-      if (!list) return;
-      var lr = list.getBoundingClientRect();
-      var r = a.getBoundingClientRect();
-      if (r.left >= lr.left && r.right <= lr.right) return;
-      list.scrollBy({ left: r.left - lr.left - (lr.width - r.width) / 2, behavior: reduce ? 'auto' : 'smooth' });
+    function setOpen(open) {
+      nav.classList.toggle('is-open', open);
+      if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setHeight();
     }
 
     function update() {
       queued = false;
       // attiva l'ultima sezione il cui inizio ha superato il bordo basso del menu
-      var line = nav.getBoundingClientRect().bottom + 8;
+      var line = nav.getBoundingClientRect().top + parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--oe-nav-sezioni-h') || nav.offsetHeight) + 8;
       var active = null;
       for (var i = 0; i < items.length; i++) {
         if (items[i].el.getBoundingClientRect().top <= line) active = items[i];
@@ -60,8 +52,8 @@
       if (current) {
         current.a.classList.add('is-active');
         current.a.setAttribute('aria-current', 'location');
-        reveal(current.a);
       }
+      if (label) label.textContent = current ? current.a.textContent : fallback;
     }
 
     function queue() {
@@ -70,12 +62,18 @@
       requestAnimationFrame(update);
     }
 
+    if (toggle) {
+      toggle.addEventListener('click', function () { setOpen(!nav.classList.contains('is-open')); });
+      items.forEach(function (it) { it.a.addEventListener('click', function () { setOpen(false); }); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
+      });
+    }
+
     setHeight();
-    edges();
     update();
     window.addEventListener('scroll', queue, { passive: true });
-    window.addEventListener('resize', function () { setHeight(); edges(); queue(); });
-    if (list) list.addEventListener('scroll', edges, { passive: true });
+    window.addEventListener('resize', function () { setHeight(); queue(); });
   }
 
   function start() {

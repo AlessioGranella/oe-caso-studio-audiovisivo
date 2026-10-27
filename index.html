@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Il settore Audiovisivo - l’economia della cultura e dell’identità italiana | OpenEconomics</title>
 <meta name="description" content="Analisi d'impatto socioeconomico del settore audiovisivo italiano. OpenEconomics per APA, dati 2023, modello SAM Italia a 63 settori.">
-<link rel="stylesheet" href="ds-kit/colors_and_type.css?v=202610270841">
-<link rel="stylesheet" href="ds-kit/components.css?v=202610270841">
+<link rel="stylesheet" href="ds-kit/colors_and_type.css?v=202610270847">
+<link rel="stylesheet" href="ds-kit/components.css?v=202610270847">
 <style>
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -226,10 +226,16 @@ a{color:var(--oe-link)}
 <!-- ============================================================ 1b · MENU DELLE SEZIONI
      UI Block «Navigazione Analisi» del DS. Una voce per ogni sezione con il chip lime,
      stesso testo del chip, nello stesso ordine; ogni voce è un'ancora all'id della sezione.
-     Resta agganciato in alto; la voce attiva la gestisce ds-kit/oe-nav-sezioni.js. -->
+     Le voci vanno a capo se non stanno in una riga; su mobile si aprono dall'hamburger.
+     Resta agganciato in alto; voce attiva e hamburger li gestisce ds-kit/oe-nav-sezioni.js. -->
 <nav class="oe-nav-sezioni" aria-label="Sezioni della pagina">
   <div class="oe-container">
-    <ul class="oe-nav-sezioni__list">
+    <!-- su mobile la lista si chiude dietro l'hamburger; il testo diventa la sezione in vista -->
+    <button class="oe-nav-sezioni__toggle" type="button" aria-expanded="false" aria-controls="oe-nav-sezioni-lista">
+      <span class="oe-nav-sezioni__current">Sezioni</span>
+      <span class="oe-nav-sezioni__burger" aria-hidden="true"></span>
+    </button>
+    <ul class="oe-nav-sezioni__list" id="oe-nav-sezioni-lista">
       <li><a class="oe-nav-sezioni__link" href="#executive-summary">Executive Summary</a></li>
       <li><a class="oe-nav-sezioni__link" href="#sintesi">Sintesi</a></li>
       <li><a class="oe-nav-sezioni__link" href="#lo-studio">Lo studio</a></li>
@@ -876,8 +882,8 @@ a{color:var(--oe-link)}
   </div>
 </footer>
 
-<script src="js/data.js?v=202610270841"></script>
-<script src="js/charts.js?v=202610270841" defer></script>
+<script src="js/data.js?v=202610270847"></script>
+<script src="js/charts.js?v=202610270847" defer></script>
 <script src="ds-kit/oe-nav-sezioni.js" defer></script>
 </body>
 </html>
